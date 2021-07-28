@@ -1,4 +1,4 @@
-import Link from 'models/Link';
+import Link from 'src/models/Link';
 
 const ADD_LINK = 'link/ADD_LINK' as const;
 const SET_LINKS = 'link/SET_LINKS' as const;
@@ -31,6 +31,7 @@ type State = {
 const initialState: State = {
   links: [],
 };
+
 function link(state: State = initialState, action: Action): State {
   switch (action.type) {
     case ADD_LINK: return {

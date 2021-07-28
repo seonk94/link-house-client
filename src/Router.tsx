@@ -1,12 +1,17 @@
-import App from 'App';
+import Layout, { Content } from 'antd/lib/layout/layout';
+import Home from 'src/pages/Home';
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const Root = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route exact path="/" component={App} />
-    </Switch>
-  </BrowserRouter>
+  <Layout>
+    <Content>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Home} />
+        </Switch>
+      </BrowserRouter>
+    </Content>
+  </Layout>
 );
 export default Root;
