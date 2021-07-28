@@ -3,13 +3,16 @@ export default class Link {
 
   public url: string;
 
+  public title: string;
+
   public grade: number;
 
   constructor(
-    link: Link,
+    link: Pick<Link, 'id' | 'url'> & Partial<Link>,
   ) {
     this.id = link.id;
     this.url = link.url;
-    this.grade = link.grade;
+    this.title = link.title || '';
+    this.grade = link.grade || 0;
   }
 }
