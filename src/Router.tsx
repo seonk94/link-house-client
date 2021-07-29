@@ -4,7 +4,10 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const Root = () => (
-  <Layout>
+  <Layout style={{
+    minHeight: '100vh',
+  }}
+  >
     <Content>
       <BrowserRouter>
         <Switch>
