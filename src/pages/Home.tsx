@@ -46,7 +46,11 @@ const Home = () => {
       </Row>
       <Divider />
       <Row justify="space-around">
-        {dummyLinks.map((link) => <Col key={link.id} xs={12} md={6}><LinkCard link={link} /></Col>)}
+        {dummyLinks.map((link) => (
+          <Col key={link.id} xs={24} md={12} lg={6}>
+            <LinkCard link={link} />
+          </Col>
+        ))}
       </Row>
     </div>
   );
