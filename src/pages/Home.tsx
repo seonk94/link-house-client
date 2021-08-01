@@ -38,7 +38,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <>
       <Row justify="center">
         <Col xs={24} md={12} lg={10}>
           <UrlInput handleInput={handleInput} handleSearch={handleSearch} />
@@ -52,7 +52,7 @@ const Home = () => {
           </Col>
         ))}
       </Row>
-    </div>
+    </>
   );
 };
 export default Home;
