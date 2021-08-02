@@ -7,7 +7,7 @@ const client = (() => {
   });
   axiosInstance.interceptors.request.use(
     (config) => {
-      config.headers.Authorization = Cookies.get('access_token');
+      config.headers.Authorization = localStorage.getItem('token');
       return config;
     },
     (error) => Promise.reject(error),
