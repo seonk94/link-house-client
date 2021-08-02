@@ -3,6 +3,7 @@ import Link from 'src/models/Link';
 const ADD_LINK = 'link/ADD_LINK' as const;
 const SET_LINKS = 'link/SET_LINKS' as const;
 const REMOVE_LINK = 'link/REMOVE_LINK' as const;
+const UPDATE_LINK = 'link/UPDATE_LINK' as const;
 
 export const setLinks = (links: Link[]) => ({
   type: SET_LINKS,
@@ -19,20 +20,28 @@ export const removeLink = (link: Link) => ({
   payload: link,
 });
 
+export const updateLink = (link: Link) => ({
+  type: UPDATE_LINK,
+  payload: link,
+});
+
 type Action =
   | ReturnType<typeof addLink>
   | ReturnType<typeof removeLink>
+  | ReturnType<typeof updateLink>
   | ReturnType<typeof setLinks>;
 
 type State = {
   links: Link[]
+  message: string;
 }
 
 const initialState: State = {
   links: [],
+  message: '',
 };
 
-function link(state: State = initialState, action: Action): State {
+function linkReducer(state: State = initialState, action: Action): State {
   switch (action.type) {
     case ADD_LINK: return {
       ...state,
@@ -50,7 +59,19 @@ function link(state: State = initialState, action: Action): State {
         links: action.payload,
       };
     }
+    case UPDATE_LINK: {
+      const findIndex = state.links.findIndex(
+        (link) => link.id === action.payload.id,
+      );
+      if (findIndex === -1) return state;
+      const newLinks = [...state.links];
+      newLinks[findIndex] = action.payload;
+      return {
+        ...state,
+        links: newLinks,
+      };
+    }
     default: return state;
   }
 }
-export default link;
+export default linkReducer;
