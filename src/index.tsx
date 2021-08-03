@@ -6,10 +6,12 @@ import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
 import 'antd/dist/antd.css';
-import reducer from './reducer';
+import redux from './store';
 
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(reducer, applyMiddleware(sagaMiddleware));
+const store = createStore(redux.rootReducer, applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(redux.rootSagas());
 
 ReactDOM.render(
   <React.StrictMode>

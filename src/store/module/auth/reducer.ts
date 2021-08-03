@@ -25,6 +25,9 @@ function userReducer(state: State = initialState, action: UserActionType): State
     case userConstants.USER_FETCH_REQUEST: return {
       ...state,
     };
+    case userConstants.USER_LOGIN: return {
+      ...state,
+    };
     default: return state;
   }
 }
