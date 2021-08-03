@@ -3,6 +3,9 @@ import UrlInput from 'src/atoms/UrlInput';
 import React, { useState, useEffect } from 'react';
 import Link from 'src/models/Link';
 import LinkCard from 'src/atoms/LinkCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'src/store';
+import { setLinks } from 'src/store/module/link/reducer';
 
 const dummyLinks = [
   new Link({
@@ -30,6 +33,9 @@ const dummyLinks = [
 ];
 const Home = () => {
   const [search, setSearch] = useState('');
+  const links = useSelector((state: RootState) => state.link.links);
+  const dispatch = useDispatch();
+  dispatch(setLinks(dummyLinks));
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value);
 
@@ -46,7 +52,7 @@ const Home = () => {
       </Row>
       <Divider />
       <Row justify="space-around">
-        {dummyLinks.map((link) => (
+        {links.map((link) => (
           <Col key={link.id} xs={24} md={12} lg={6}>
             <LinkCard link={link} />
           </Col>

@@ -4,9 +4,12 @@ import {
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import React from 'react';
 
-const SignInForm = () => {
+interface Props {
+  signIn: (values: { email: string, password: string}) => void;
+}
+const SignInForm = ({ signIn }: Props) => {
   const onFinish = (values: { email: string, password: string}) => {
-    console.log('Received values of form: ', values);
+    signIn(values);
   };
   return (
     <Form
