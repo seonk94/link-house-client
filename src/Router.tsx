@@ -1,5 +1,7 @@
 import Layout, { Content } from 'antd/lib/layout/layout';
-import React, { useEffect, lazy, Suspense } from 'react';
+import React, {
+  useEffect, lazy, Suspense, useState,
+} from 'react';
 import {
   BrowserRouter, Redirect, Route, Switch,
 } from 'react-router-dom';
@@ -57,7 +59,7 @@ const Root = () => {
             )}
           >
             <Switch>
-              <AuthRoute exact path="/" user={user} component={Home} />
+              <Route exact path="/" component={Home} />
               <Route path="/signin" component={SignIn} />
               <Route path="/signup" component={SignUp} />
             </Switch>

@@ -5,7 +5,7 @@ import Link from 'src/models/Link';
 import LinkCard from 'src/atoms/LinkCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'src/store';
-import { setLinks } from 'src/store/module/link/reducer';
+import linkActions from 'src/store/module/link/actions';
 
 const dummyLinks = [
   new Link({
@@ -35,7 +35,9 @@ const Home = () => {
   const [search, setSearch] = useState('');
   const links = useSelector((state: RootState) => state.link.links);
   const dispatch = useDispatch();
-  dispatch(setLinks(dummyLinks));
+  useEffect(() => {
+    dispatch(linkActions.linkFetchRequest());
+  }, []);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value);
 
