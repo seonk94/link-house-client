@@ -1,4 +1,4 @@
-import { Card } from 'antd';
+import { Card, Image } from 'antd';
 import React from 'react';
 import Link from 'src/models/Link';
 import NotFoundImage from 'src/assets/images/NotFound.png';
@@ -8,7 +8,11 @@ const LinkCard = ({ link }: { link: Link }) => (
     title={link.url}
     cover={(
       <div style={{ background: '#e6e6e6', textAlign: 'center' }}>
-        <img style={{ maxHeight: '200px', width: 'auto', margin: 'auto' }} alt={link.title} src={link.image || NotFoundImage} />
+        <Image
+          height={180}
+          alt={link.title}
+          src={link.image || NotFoundImage}
+        />
       </div>
     )}
   >
