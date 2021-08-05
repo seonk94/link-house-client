@@ -3,6 +3,8 @@ export default class Link {
 
   public url: string;
 
+  public uri: string;
+
   public title: string;
 
   public description: string;
@@ -16,10 +18,11 @@ export default class Link {
   public grade: number;
 
   constructor(
-    link: Pick<Link, 'id' | 'url'> & Partial<Link>,
+    link: Pick<Link, 'id' | 'uri'> & Partial<Link>,
   ) {
-    this.id = link.id;
-    this.url = link.url;
+    this.id = link.id || new Date().getTime().toString();
+    this.uri = link.uri;
+    this.url = link.url || '';
     this.title = link.title || '';
     this.date = link.date || '';
     this.author = link.author || '';

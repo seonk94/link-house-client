@@ -35,20 +35,19 @@ function linkReducer(state: State = initialState, action: LinkActionType): State
         links: newLinks,
       };
     }
-    case linkConstants.SET_LINKS:
-    case linkConstants.LINK_FETCH_SUCCESS: {
+    case linkConstants.SET_LINKS: {
       return {
         ...state,
         links: action.payload,
       };
     }
-    case linkConstants.LINK_FETCH_FAILURE: {
+    case linkConstants.FAIL_LINK: {
       return {
         ...state,
         message: action.payload,
       };
     }
-    case linkConstants.LINK_FETCH_REQUEST: {
+    case linkConstants.FETCH_LINKS: {
       return state;
     }
     default: return state;

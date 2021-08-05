@@ -5,9 +5,11 @@ export const linkConstants = {
   SET_LINKS: 'link/SET_LINKS' as const,
   REMOVE_LINK: 'link/REMOVE_LINK' as const,
   UPDATE_LINK: 'link/UPDATE_LINK' as const,
-  LINK_FETCH_SUCCESS: 'link/LINK_FETCH_SUCCESS' as const,
-  LINK_FETCH_FAILURE: 'link/LINK_FETCH_FAILURE' as const,
-  LINK_FETCH_REQUEST: 'link/LINK_FETCH_REQUEST' as const,
+  FAIL_LINK: 'link/FAIL_LINK' as const,
+  GET_LINKS: 'link/GET_LINKS' as const,
+  FETCH_LINKS: 'link/FETCH_LINKS' as const,
+  POST_LINK: 'link/POST_LINK' as const,
+  POST_LOCAL_LINK: 'link/POST_LOCAL_LINK' as const,
 };
 
 const linkActions = {
@@ -27,16 +29,20 @@ const linkActions = {
     type: linkConstants.UPDATE_LINK,
     payload: link,
   }),
-  linkFetchSuccess: (links: Link[]) => ({
-    type: linkConstants.LINK_FETCH_SUCCESS,
-    payload: links,
-  }),
-  linkFetchRequest: () => ({
-    type: linkConstants.LINK_FETCH_REQUEST,
-  }),
-  linkFetchFailure: (message: string) => ({
-    type: linkConstants.LINK_FETCH_FAILURE,
+  failLink: (message: string) => ({
+    type: linkConstants.FAIL_LINK,
     payload: message,
+  }),
+  fetchLinks: () => ({
+    type: linkConstants.FETCH_LINKS,
+  }),
+  postLink: (uri: string) => ({
+    type: linkConstants.POST_LINK,
+    payload: uri,
+  }),
+  postLocalLink: (uri: string) => ({
+    type: linkConstants.POST_LOCAL_LINK,
+    payload: uri,
   }),
 };
 
@@ -45,8 +51,9 @@ export type LinkActionType =
   | ReturnType<typeof linkActions.removeLink>
   | ReturnType<typeof linkActions.updateLink>
   | ReturnType<typeof linkActions.setLinks>
-  | ReturnType<typeof linkActions.linkFetchSuccess>
-  | ReturnType<typeof linkActions.linkFetchRequest>
-  | ReturnType<typeof linkActions.linkFetchFailure>
+  | ReturnType<typeof linkActions.fetchLinks>
+  | ReturnType<typeof linkActions.failLink>
+  | ReturnType<typeof linkActions.postLink>
+  | ReturnType<typeof linkActions.postLocalLink>
 
 export default linkActions;

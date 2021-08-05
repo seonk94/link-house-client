@@ -6,12 +6,5 @@ interface Props {
   handleSearch: () => void;
 }
 
-const UrlInput = ({ handleInput, handleSearch } : Props) => {
-  const handleEnter = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
-  };
-  return <Input.Search placeholder="Url" onKeyDown={handleEnter} onInput={handleInput} onSearch={handleSearch} />;
-};
+const UrlInput = ({ handleInput, handleSearch } : Props) => <Input.Search placeholder="Input url" type="url" onInput={handleInput} onSearch={handleSearch} />;
 export default UrlInput;

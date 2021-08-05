@@ -9,6 +9,7 @@ const LinkCard = ({ link }: { link: Link }) => (
     cover={(
       <div style={{ background: '#e6e6e6', textAlign: 'center' }}>
         <Image
+          preview={false}
           height={180}
           alt={link.title}
           src={link.image || NotFoundImage}
