@@ -42,7 +42,7 @@ const Root = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      dispatch(userActions.userFetchRequest());
+      dispatch(userActions.fetchUser());
     }
   }, []);
   return (

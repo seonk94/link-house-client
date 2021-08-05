@@ -14,18 +14,18 @@ const initialState: State = {
 
 function userReducer(state: State = initialState, action: UserActionType): State {
   switch (action.type) {
-    case userConstants.USER_FETCH_SUCCESS: return {
+    case userConstants.SET_USER: return {
       ...state,
       user: action.payload,
     };
-    case userConstants.USER_FETCH_FAILURE: return {
+    case userConstants.FAIL_USER: return {
       ...state,
       message: action.payload,
     };
-    case userConstants.USER_FETCH_REQUEST: return {
+    case userConstants.FETCH_USER: return {
       ...state,
     };
-    case userConstants.USER_LOGIN: return {
+    case userConstants.LONIN_USER: return {
       ...state,
     };
     default: return state;

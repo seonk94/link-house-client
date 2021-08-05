@@ -1,34 +1,34 @@
 import User from 'src/models/User';
 
 export const userConstants = {
-  USER_FETCH_SUCCESS: 'user/USER_FETCH_SUCCESS' as const,
-  USER_FETCH_FAILURE: 'user/USER_FETCH_FAILURE' as const,
-  USER_FETCH_REQUEST: 'user/USER_FETCH_REQUEST' as const,
-  USER_LOGIN: 'user/USER_LOGIN' as const,
+  SET_USER: 'user/SER_USER' as const,
+  FAIL_USER: 'user/FAIL_USER' as const,
+  FETCH_USER: 'user/FETCH_USER' as const,
+  LONIN_USER: 'user/LOGIN_USER' as const,
 };
 
 const userActions = {
-  userFetchSuccess: (user: User) => ({
-    type: userConstants.USER_FETCH_SUCCESS,
+  setUser: (user: User) => ({
+    type: userConstants.SET_USER,
     payload: user,
   }),
-  userFetchRequest: () => ({
-    type: userConstants.USER_FETCH_REQUEST,
+  fetchUser: () => ({
+    type: userConstants.FETCH_USER,
   }),
-  userLogin: (input: { email: string, password: string }) => ({
-    type: userConstants.USER_LOGIN,
+  loginUser: (input: { email: string, password: string }) => ({
+    type: userConstants.LONIN_USER,
     payload: input,
   }),
-  userFetchFailure: (message: string) => ({
-    type: userConstants.USER_FETCH_FAILURE,
+  failUser: (message: string) => ({
+    type: userConstants.FAIL_USER,
     payload: message,
   }),
 };
 
 export type UserActionType =
-  | ReturnType<typeof userActions.userFetchSuccess>
-  | ReturnType<typeof userActions.userLogin>
-  | ReturnType<typeof userActions.userFetchRequest>
-  | ReturnType<typeof userActions.userFetchFailure>;
+  | ReturnType<typeof userActions.setUser>
+  | ReturnType<typeof userActions.loginUser>
+  | ReturnType<typeof userActions.fetchUser>
+  | ReturnType<typeof userActions.failUser>;
 
 export default userActions;

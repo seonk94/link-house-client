@@ -7,7 +7,7 @@ import userActions, { userConstants } from 'src/store/module/auth/actions';
 const SignIn = () => {
   const dispatch = useDispatch();
   const handleSignIn = (values: { email: string, password: string}) => {
-    dispatch(userActions.userLogin(values));
+    dispatch(userActions.loginUser(values));
   };
   return (
     <>
