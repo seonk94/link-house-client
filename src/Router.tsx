@@ -1,15 +1,14 @@
 import Layout, { Content } from 'antd/lib/layout/layout';
-import React, {
-  useEffect, lazy, Suspense, useState,
-} from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import {
-  BrowserRouter, Redirect, Route, Switch,
+  BrowserRouter, Redirect, Route, Router, Switch,
 } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { Col, Row, Spin } from 'antd';
+import { useDispatch } from 'react-redux';
+import { Row, Spin } from 'antd';
+import { History } from 'history';
 import User from './models/User';
 import userActions from './store/module/auth/actions';
-import { RootState } from './store';
+import Appbar from './modules/Appbar';
 
 const Home = lazy(() => import('src/pages/Home'));
 const SignIn = lazy(() => import('src/pages/SignIn'));
@@ -36,9 +35,8 @@ function AuthRoute({
   );
 }
 
-const Root = () => {
+const Root = ({ history } : { history: History }) => {
   const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.auth.user);
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -50,8 +48,9 @@ const Root = () => {
       minHeight: '100vh',
     }}
     >
-      <Content>
-        <BrowserRouter>
+      <Appbar />
+      <Content style={{ padding: '24px' }}>
+        <Router history={history}>
           <Suspense fallback={(
             <Row justify="center" align="middle">
               <Spin size="large" />
@@ -60,11 +59,11 @@ const Root = () => {
           >
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route path="/signin" component={SignIn} />
-              <Route path="/signup" component={SignUp} />
+              <Route exact path="/signin" component={SignIn} />
+              <Route exact path="/signup" component={SignUp} />
             </Switch>
           </Suspense>
-        </BrowserRouter>
+        </Router>
       </Content>
     </Layout>
   );

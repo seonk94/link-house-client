@@ -4,11 +4,17 @@ import Root from 'src/Router';
 import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
+import { createBrowserHistory } from 'history';
 import reportWebVitals from './reportWebVitals';
 import 'antd/dist/antd.css';
 import redux from './store';
 
-const sagaMiddleware = createSagaMiddleware();
+const history = createBrowserHistory();
+const sagaMiddleware = createSagaMiddleware({
+  context: {
+    history,
+  },
+});
 const store = createStore(redux.rootReducer, applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(redux.rootSagas());
@@ -16,7 +22,7 @@ sagaMiddleware.run(redux.rootSagas());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Root />
+      <Root history={history} />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
