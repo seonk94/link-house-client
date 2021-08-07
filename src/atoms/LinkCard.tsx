@@ -17,7 +17,26 @@ const LinkCard = ({ link }: { link: Link }) => (
       </div>
     )}
   >
-    <Card.Meta title={link.title} description={link.description} />
+    <Card.Meta
+      title={link.title}
+      style={{
+        paddingBottom: '8px',
+      }}
+    />
+    <div
+      className="ant-card-meta-description"
+      style={{
+        maxHeight: '44px',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        WebkitLineClamp: 2,
+        WebkitBoxOrient: 'vertical',
+        wordBreak: 'break-word',
+        display: '-webkit-box',
+      }}
+    >
+      {link.description}
+    </div>
   </Card>
 );
 
