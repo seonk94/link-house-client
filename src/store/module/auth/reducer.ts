@@ -25,7 +25,7 @@ function userReducer(state: State = initialState, action: UserActionType): State
     case userConstants.FETCH_USER: return {
       ...state,
     };
-    case userConstants.LONIN_USER: return {
+    case userConstants.SIGNIN_USER: return {
       ...state,
     };
     default: return state;

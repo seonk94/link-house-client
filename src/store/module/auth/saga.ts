@@ -7,7 +7,7 @@ import api from 'src/api';
 import User from 'src/models/User';
 import userActions, { userConstants } from './actions';
 
-function* handleLogin(action: ReturnType<typeof userActions.loginUser>) {
+function* handleSignIn(action: ReturnType<typeof userActions.signInUser>) {
   const history : History = yield getContext('history');
   try {
     const res : AxiosResponse<{ token: string, user: User }> = yield call(api.auth.signin, action.payload);
@@ -30,6 +30,6 @@ function* handleUpdateMe() {
 }
 
 export default [
-  takeEvery(userConstants.LONIN_USER, handleLogin),
+  takeEvery(userConstants.SIGNIN_USER, handleSignIn),
   takeEvery(userConstants.FETCH_USER, handleUpdateMe),
 ];
