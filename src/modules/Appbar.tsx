@@ -29,12 +29,12 @@ const Appbar = () => {
                   user
                     ? (
                       <Menu.Item key="logout" onClick={handleLogout}>
-                        <a href="/signin">Logout</a>
+                        <a href="/signin">Sign Out</a>
                       </Menu.Item>
                     )
                     : (
                       <Menu.Item key="signin">
-                        <a href="/signin">SignIn</a>
+                        <a href="/signin">Sign In</a>
                       </Menu.Item>
                     )
                 }
