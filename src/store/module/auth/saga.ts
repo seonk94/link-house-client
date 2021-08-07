@@ -29,7 +29,18 @@ function* handleUpdateMe() {
   }
 }
 
+function* handleSignUp(action: ReturnType<typeof userActions.signUpUser>) {
+  const history : History = yield getContext('history');
+  try {
+    const res : AxiosResponse<{ token: string, user: User }> = yield call(api.auth.signup, action.payload);
+    history.push('/signin');
+  } catch (e) {
+    yield put(userActions.failUser(e.message));
+  }
+}
+
 export default [
   takeEvery(userConstants.SIGNIN_USER, handleSignIn),
   takeEvery(userConstants.FETCH_USER, handleUpdateMe),
+  takeEvery(userConstants.SIGNUP_USER, handleSignUp),
 ];

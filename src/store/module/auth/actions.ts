@@ -5,6 +5,7 @@ export const userConstants = {
   FAIL_USER: 'user/FAIL_USER' as const,
   FETCH_USER: 'user/FETCH_USER' as const,
   SIGNIN_USER: 'user/SIGNIN_USER' as const,
+  SIGNUP_USER: 'user/SIGNUP_USER' as const,
 };
 
 const userActions = {
@@ -19,6 +20,10 @@ const userActions = {
     type: userConstants.SIGNIN_USER,
     payload: input,
   }),
+  signUpUser: (input: { email: string, password: string, name: string }) => ({
+    type: userConstants.SIGNUP_USER,
+    payload: input,
+  }),
   failUser: (message: string) => ({
     type: userConstants.FAIL_USER,
     payload: message,
@@ -28,6 +33,7 @@ const userActions = {
 export type UserActionType =
   | ReturnType<typeof userActions.setUser>
   | ReturnType<typeof userActions.signInUser>
+  | ReturnType<typeof userActions.signUpUser>
   | ReturnType<typeof userActions.fetchUser>
   | ReturnType<typeof userActions.failUser>;
 

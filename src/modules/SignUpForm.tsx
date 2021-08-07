@@ -2,10 +2,13 @@ import {
   Form, Input, Button,
 } from 'antd';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import userActions from 'src/store/module/auth/actions';
 
 const SignUpForm = () => {
-  const onFinish = (values: { email: string, password: string, passwordConfirm: string}) => {
-    console.log('Received values of form: ', values);
+  const dispatch = useDispatch();
+  const onFinish = (values: { email: string, password: string, passwordConfirm: string, name: string }) => {
+    dispatch(userActions.signUpUser(values));
   };
   return (
     <Form
@@ -24,9 +27,21 @@ const SignUpForm = () => {
       </Form.Item>
 
       <Form.Item
+        label="name"
+        name="name"
+        rules={[{ required: true, message: 'Please input your name!' }]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
         label="Password"
         name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
+        hasFeedback
+        rules={[
+          { required: true, message: 'Please input your password!' },
+          { min: 4, message: 'Please enter at least 4 characters.' },
+        ]}
       >
         <Input.Password />
       </Form.Item>
@@ -34,7 +49,22 @@ const SignUpForm = () => {
       <Form.Item
         label="Confirm Password"
         name="confirmPassword"
-        rules={[{ required: true, message: 'Please input your password!' }]}
+        dependencies={['password']}
+        hasFeedback
+        rules={[
+          {
+            required: true,
+            message: 'Please confirm your password!',
+          },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue('password') === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error('The two passwords that you entered do not match!'));
+            },
+          }),
+        ]}
       >
         <Input.Password />
       </Form.Item>
