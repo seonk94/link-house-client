@@ -23,6 +23,7 @@ module.exports = {
     'max-len': 0,
     'no-shadow': 0,
     'no-alert': 0,
+    'no-underscore-dangle': 0,
     'import/extensions': 0,
     'import/no-unresolved': 0,
     'no-use-before-define': 0,

@@ -1,5 +1,5 @@
 export default class Link {
-  public id: string;
+  public _id: string;
 
   public url: string;
 
@@ -18,9 +18,9 @@ export default class Link {
   public grade: number;
 
   constructor(
-    link: Pick<Link, 'id' | 'uri'> & Partial<Link>,
+    link: Pick<Link, '_id' | 'uri'> & Partial<Link>,
   ) {
-    this.id = link.id || new Date().getTime().toString();
+    this._id = link._id || new Date().getTime().toString();
     this.uri = link.uri;
     this.url = link.url || '';
     this.title = link.title || '';

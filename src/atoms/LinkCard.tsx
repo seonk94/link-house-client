@@ -27,6 +27,7 @@ const LinkCard = ({ link }: { link: Link }) => (
       className="ant-card-meta-description"
       style={{
         maxHeight: '44px',
+        minHeight: '44px',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         WebkitLineClamp: 2,

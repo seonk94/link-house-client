@@ -20,12 +20,12 @@ function linkReducer(state: State = initialState, action: LinkActionType): State
     case linkConstants.REMOVE_LINK: {
       return {
         ...state,
-        links: state.links.filter((link) => link.id !== action.payload.id),
+        links: state.links.filter((link) => link._id !== action.payload._id),
       };
     }
     case linkConstants.UPDATE_LINK: {
       const findIndex = state.links.findIndex(
-        (link) => link.id === action.payload.id,
+        (link) => link._id === action.payload._id,
       );
       if (findIndex === -1) return state;
       const newLinks = [...state.links];
