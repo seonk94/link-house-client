@@ -37,10 +37,10 @@ const Home = () => {
   const user = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (user) {
+    if (links.length === 0 && user) {
       dispatch(linkActions.fetchLinks());
     }
-  }, []);
+  }, [user]);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value);
 
@@ -60,7 +60,7 @@ const Home = () => {
         </Col>
       </Row>
       <Divider />
-      <Row justify="space-around">
+      <Row justify="space-around" gutter={[16, 16]}>
         {links.map((link) => (
           <Col key={link.id} xs={24} md={12} lg={6}>
             <LinkCard link={link} />
