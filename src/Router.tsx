@@ -49,7 +49,7 @@ const Root = ({ history } : { history: History }) => {
     }}
     >
       <Appbar />
-      <Content style={{ padding: '24px' }}>
+      <Content style={{ padding: '24px', marginTop: '64px' }}>
         <Router history={history}>
           <Suspense fallback={(
             <Row justify="center" align="middle">
