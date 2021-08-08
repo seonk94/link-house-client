@@ -41,7 +41,7 @@ const Home = () => {
     <>
       <Row justify="center">
         <Col xs={24} md={12} lg={10}>
-          <UrlInput handleInput={handleInput} handleSearch={handleSearch} />
+          <UrlInput handleInput={handleInput} value={search} handleSearch={handleSearch} />
         </Col>
       </Row>
       <Divider />
