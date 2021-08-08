@@ -42,7 +42,17 @@ const Appbar = () => {
             )}
             placement="bottomRight"
           >
-            <Avatar icon={<UserOutlined />} />
+            {
+              user
+                ? (
+                  <Avatar style={{ cursor: 'pointer', color: '#f56a00', backgroundColor: '#fde3cf' }}>
+                    {user.name[0].toUpperCase()}
+                  </Avatar>
+                )
+                : (
+                  <Avatar style={{ cursor: 'pointer', backgroundColor: '#87d068' }} icon={<UserOutlined />} />
+                )
+            }
           </Dropdown>
         </div>
       </Row>
