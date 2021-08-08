@@ -1,9 +1,13 @@
-import { Card, Image } from 'antd';
+import { Card, Image, Rate } from 'antd';
 import React from 'react';
 import Link from 'src/models/Link';
 import NotFoundImage from 'src/assets/images/NotFound.png';
 
-const LinkCard = ({ link }: { link: Link }) => (
+interface Props {
+  link: Link;
+  handleUpdate: (partialLink: Partial<Link>) => void;
+}
+const LinkCard = ({ link, handleUpdate }: Props) => (
   <Card
     title={link.url}
     cover={(
@@ -20,7 +24,7 @@ const LinkCard = ({ link }: { link: Link }) => (
     <Card.Meta
       title={link.title}
       style={{
-        paddingBottom: '8px',
+        paddingBottom: '4px',
       }}
     />
     <div
@@ -34,9 +38,13 @@ const LinkCard = ({ link }: { link: Link }) => (
         WebkitBoxOrient: 'vertical',
         wordBreak: 'break-word',
         display: '-webkit-box',
+        paddingBottom: '4px',
       }}
     >
       {link.description}
+    </div>
+    <div>
+      <Rate allowHalf value={link.grade} onChange={(value) => handleUpdate({ grade: value })} />
     </div>
   </Card>
 );

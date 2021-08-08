@@ -25,8 +25,16 @@ function* handlePostLink(action: ReturnType<typeof linkActions.postLink>) {
 function* handleLocalPostLink(action: ReturnType<typeof linkActions.postLocalLink>) {
   try {
     const res : AxiosResponse<{ metadata: Link }> = yield call(api.link.getMetadata, action.payload);
-
     yield put(linkActions.addLink(new Link(res.data.metadata)));
+  } catch (e) {
+    yield put(linkActions.failLink(e.message));
+  }
+}
+
+function* handleUpdateLink(action: ReturnType<typeof linkActions.patchLink>) {
+  try {
+    const res : AxiosResponse<{ link: Link }> = yield call(api.link.patchLink, action.payload);
+    yield put(linkActions.updateLink(new Link(res.data.link)));
   } catch (e) {
     yield put(linkActions.failLink(e.message));
   }
@@ -35,5 +43,6 @@ function* handleLocalPostLink(action: ReturnType<typeof linkActions.postLocalLin
 export default [
   takeEvery(linkConstants.FETCH_LINKS, handleFetch),
   takeEvery(linkConstants.POST_LINK, handlePostLink),
+  takeEvery(linkConstants.PATCH_LINK, handleUpdateLink),
   takeEvery(linkConstants.POST_LOCAL_LINK, handleLocalPostLink),
 ];
