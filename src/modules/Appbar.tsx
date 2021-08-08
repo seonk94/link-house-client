@@ -15,6 +15,9 @@ const Appbar = () => {
   return (
     <Header style={{
       background: '#fff',
+      position: 'fixed',
+      zIndex: 1,
+      width: '100%',
       boxShadow: '0 2px 8px #f0f1f2',
     }}
     >
