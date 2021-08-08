@@ -7,46 +7,74 @@ interface Props {
   link: Link;
   handleUpdate: (partialLink: Partial<Link>) => void;
 }
-const LinkCard = ({ link, handleUpdate }: Props) => (
-  <Card
-    title={link.url}
-    cover={(
-      <div style={{ background: '#e6e6e6', textAlign: 'center' }}>
-        <Image
-          preview={false}
-          height={180}
-          alt={link.title}
-          src={link.image || NotFoundImage}
-        />
-      </div>
-    )}
-  >
-    <Card.Meta
-      title={link.title}
-      style={{
-        paddingBottom: '4px',
-      }}
-    />
-    <div
-      className="ant-card-meta-description"
-      style={{
-        maxHeight: '44px',
-        minHeight: '44px',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        WebkitLineClamp: 2,
-        WebkitBoxOrient: 'vertical',
-        wordBreak: 'break-word',
-        display: '-webkit-box',
-        paddingBottom: '4px',
+const LinkCard = ({ link, handleUpdate }: Props) => {
+  const aStyle = {
+    display: 'block',
+    color: 'inherit',
+    textDecoration: 'none',
+  };
+  return (
+    <Card
+      hoverable
+      bodyStyle={{
+        padding: 0,
       }}
     >
-      {link.description}
-    </div>
-    <div>
-      <Rate allowHalf value={link.grade} onChange={(value) => handleUpdate({ grade: value })} />
-    </div>
-  </Card>
-);
+      <a href={link.url} target="_blank" rel="noreferrer" style={aStyle}>
+        <Card.Meta
+          title={link.url}
+          style={{
+            padding: '12px',
+          }}
+        />
+        <div style={{ background: '#e6e6e6', textAlign: 'center' }}>
+          <Image
+            preview={false}
+            height={180}
+            alt={link.title}
+            src={link.image || NotFoundImage}
+          />
+        </div>
+        <div style={{ padding: '12px' }}>
+          <h4 style={{
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+          >
+            {link.title}
+
+          </h4>
+          <div style={{ flex: '1 1 0%' }}>
+            <p style={{
+              minHeight: '44px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              wordBreak: 'break-word',
+              display: '-webkit-box',
+              color: 'rgba(0, 0, 0, 0.45)',
+              margin: 0,
+            }}
+            >
+              {link.description}
+            </p>
+          </div>
+        </div>
+      </a>
+      <div
+        style={{
+          borderTop: '1px solid #f0f0f0',
+          display: 'flex',
+          justifyContent: 'center',
+          padding: '12px',
+        }}
+      >
+        <Rate allowHalf value={link.grade} onChange={(value) => handleUpdate({ grade: value })} />
+      </div>
+    </Card>
+  );
+};
 
 export default LinkCard;
