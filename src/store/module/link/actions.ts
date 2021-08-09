@@ -10,6 +10,7 @@ export const linkConstants = {
   FETCH_LINKS: 'link/FETCH_LINKS' as const,
   PATCH_LINK: 'link/PATCH_LINK' as const,
   POST_LINK: 'link/POST_LINK' as const,
+  DELETE_LINK: 'link/DELETE_LINK' as const,
   POST_LOCAL_LINK: 'link/POST_LOCAL_LINK' as const,
 };
 
@@ -22,9 +23,9 @@ const linkActions = {
     type: linkConstants.ADD_LINK,
     payload: link,
   }),
-  removeLink: (link: Link) => ({
+  removeLink: (id: string) => ({
     type: linkConstants.REMOVE_LINK,
-    payload: link,
+    payload: id,
   }),
   updateLink: (link: Link) => ({
     type: linkConstants.UPDATE_LINK,
@@ -49,6 +50,10 @@ const linkActions = {
     type: linkConstants.POST_LOCAL_LINK,
     payload: uri,
   }),
+  deleteLink: (id: string) => ({
+    type: linkConstants.DELETE_LINK,
+    payload: id,
+  }),
 };
 
 export type LinkActionType =
@@ -61,5 +66,6 @@ export type LinkActionType =
   | ReturnType<typeof linkActions.postLink>
   | ReturnType<typeof linkActions.patchLink>
   | ReturnType<typeof linkActions.postLocalLink>
+  | ReturnType<typeof linkActions.deleteLink>
 
 export default linkActions;

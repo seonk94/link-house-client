@@ -2,12 +2,14 @@ import { Card, Image, Rate } from 'antd';
 import React from 'react';
 import Link from 'src/models/Link';
 import NotFoundImage from 'src/assets/images/NotFound.png';
+import { DeleteOutlined } from '@ant-design/icons';
 
 interface Props {
   link: Link;
   handleUpdate: (partialLink: Partial<Link>) => void;
+  handleDelete: (link: Link) => void;
 }
-const LinkCard = ({ link, handleUpdate }: Props) => {
+const LinkCard = ({ link, handleUpdate, handleDelete }: Props) => {
   const aStyle = {
     display: 'block',
     color: 'inherit',
@@ -19,6 +21,9 @@ const LinkCard = ({ link, handleUpdate }: Props) => {
       bodyStyle={{
         padding: 0,
       }}
+      actions={[
+        <DeleteOutlined onClick={() => handleDelete(link)} />,
+      ]}
     >
       <a href={link.url} target="_blank" rel="noreferrer" style={aStyle}>
         <Card.Meta
@@ -27,7 +32,7 @@ const LinkCard = ({ link, handleUpdate }: Props) => {
             padding: '12px',
           }}
         />
-        <div style={{ background: '#e6e6e6', textAlign: 'center' }}>
+        <div style={{ background: '#e6e6e6', textAlign: 'center', height: '180px' }}>
           <Image
             preview={false}
             height={180}

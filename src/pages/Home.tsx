@@ -37,6 +37,10 @@ const Home = () => {
     }));
   };
 
+  const handleDeleteLink = (link: Link) => {
+    dispatch(linkActions.deleteLink(link._id));
+  };
+
   return (
     <>
       <Row justify="center">
@@ -48,7 +52,7 @@ const Home = () => {
       <Row justify="start" gutter={[16, 16]}>
         {links.map((link) => (
           <Col key={link._id} xs={24} md={12} lg={6}>
-            <LinkCard link={link} handleUpdate={handleUpdateLink(link)} />
+            <LinkCard link={link} handleUpdate={handleUpdateLink(link)} handleDelete={handleDeleteLink} />
           </Col>
         ))}
       </Row>

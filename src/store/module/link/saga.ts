@@ -40,9 +40,19 @@ function* handleUpdateLink(action: ReturnType<typeof linkActions.patchLink>) {
   }
 }
 
+function* handleDeleteLink(action: ReturnType<typeof linkActions.deleteLink>) {
+  try {
+    const res : AxiosResponse<{ id: string }> = yield call(api.link.deleteLink, action.payload);
+    yield put(linkActions.removeLink(res.data.id));
+  } catch (e) {
+    yield put(linkActions.failLink(e.message));
+  }
+}
+
 export default [
   takeEvery(linkConstants.FETCH_LINKS, handleFetch),
   takeEvery(linkConstants.POST_LINK, handlePostLink),
   takeEvery(linkConstants.PATCH_LINK, handleUpdateLink),
   takeEvery(linkConstants.POST_LOCAL_LINK, handleLocalPostLink),
+  takeEvery(linkConstants.DELETE_LINK, handleDeleteLink),
 ];
