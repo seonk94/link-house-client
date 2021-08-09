@@ -31,14 +31,25 @@ const Home = () => {
   };
 
   const handleUpdateLink = (link: Link) => (partialLink: Partial<Link>) => {
-    dispatch(linkActions.patchLink({
-      ...link,
-      ...partialLink,
-    }));
+    if (user) {
+      dispatch(linkActions.patchLink({
+        ...link,
+        ...partialLink,
+      }));
+    } else {
+      dispatch(linkActions.updateLink({
+        ...link,
+        ...partialLink,
+      }));
+    }
   };
 
   const handleDeleteLink = (link: Link) => {
-    dispatch(linkActions.deleteLink(link._id));
+    if (user) {
+      dispatch(linkActions.deleteLink(link._id));
+    } else {
+      dispatch(linkActions.removeLink(link._id));
+    }
   };
 
   return (
