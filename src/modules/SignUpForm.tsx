@@ -2,13 +2,13 @@ import {
   Form, Input, Button,
 } from 'antd';
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import userActions from 'src/store/module/auth/actions';
 
-const SignUpForm = () => {
-  const dispatch = useDispatch();
+interface Props {
+  signUp: (values: { email: string, password: string, passwordConfirm: string, name: string }) => void;
+}
+const SignUpForm = ({ signUp }: Props) => {
   const onFinish = (values: { email: string, password: string, passwordConfirm: string, name: string }) => {
-    dispatch(userActions.signUpUser(values));
+    signUp(values);
   };
   return (
     <Form
