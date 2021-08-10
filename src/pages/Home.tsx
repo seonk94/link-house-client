@@ -1,4 +1,6 @@
-import { Col, Divider, Row } from 'antd';
+import {
+  Col, Divider, Row,
+} from 'antd';
 import UrlInput from 'src/atoms/UrlInput';
 import React, { useState, useEffect } from 'react';
 import Link from 'src/models/Link';
@@ -6,6 +8,7 @@ import LinkCard from 'src/atoms/LinkCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'src/store';
 import linkActions from 'src/store/module/link/actions';
+import SignInAlert from 'src/atoms/SignInAlert';
 
 const Home = () => {
   const [search, setSearch] = useState('');
@@ -60,6 +63,13 @@ const Home = () => {
         </Col>
       </Row>
       <Divider />
+      {
+        user
+          ? undefined
+          : (
+            <SignInAlert />
+          )
+      }
       <Row justify="start" gutter={[16, 16]}>
         {links.map((link) => (
           <Col key={link._id} xs={24} md={12} lg={6}>
