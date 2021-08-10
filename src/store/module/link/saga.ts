@@ -1,4 +1,4 @@
-import { AxiosPromise, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import api from 'src/api';
 import Link from 'src/models/Link';
