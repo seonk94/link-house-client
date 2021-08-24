@@ -14,6 +14,7 @@ const Home = lazy(() => import('src/pages/Home'));
 const SignIn = lazy(() => import('src/pages/SignIn'));
 const SignUp = lazy(() => import('src/pages/SignUp'));
 const FindPassword = lazy(() => import('src/pages/FindPassword'));
+const InitPassword = lazy(() => import('src/pages/InitPassword'));
 
 function AuthRoute({
   user, component, path, exact,
@@ -63,6 +64,7 @@ const Root = ({ history } : { history: History }) => {
               <Route exact path="/signin" component={SignIn} />
               <Route exact path="/signup" component={SignUp} />
               <Route exact path="/find-password" component={FindPassword} />
+              <Route exact path="/init-password" component={InitPassword} />
             </Switch>
           </Suspense>
         </Router>
