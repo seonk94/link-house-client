@@ -1,5 +1,5 @@
 import {
-  Form, Input, Button, Checkbox, Divider,
+  Form, Input, Button,
 } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import React from 'react';
@@ -20,7 +20,7 @@ const SignInForm = ({ signIn }: Props) => {
     >
       <Form.Item
         name="email"
-        rules={[{ required: true, message: 'Please input your Email!' }]}
+        rules={[{ required: true, type: 'email', message: 'Please input your Email!' }]}
       >
         <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
       </Form.Item>
@@ -39,12 +39,6 @@ const SignInForm = ({ signIn }: Props) => {
         <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
           Log in
         </Button>
-      </Form.Item>
-
-      <Divider />
-
-      <Form.Item style={{ textAlign: 'center' }}>
-        <a href="/signup">register now!</a>
       </Form.Item>
     </Form>
   );

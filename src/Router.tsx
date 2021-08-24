@@ -13,6 +13,7 @@ import Appbar from './modules/Appbar';
 const Home = lazy(() => import('src/pages/Home'));
 const SignIn = lazy(() => import('src/pages/SignIn'));
 const SignUp = lazy(() => import('src/pages/SignUp'));
+const FindPassword = lazy(() => import('src/pages/FindPassword'));
 
 function AuthRoute({
   user, component, path, exact,
@@ -61,6 +62,7 @@ const Root = ({ history } : { history: History }) => {
               <Route exact path="/" component={Home} />
               <Route exact path="/signin" component={SignIn} />
               <Route exact path="/signup" component={SignUp} />
+              <Route exact path="/find-password" component={FindPassword} />
             </Switch>
           </Suspense>
         </Router>
