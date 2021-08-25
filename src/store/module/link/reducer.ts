@@ -15,7 +15,7 @@ function linkReducer(state: State = initialState, action: LinkActionType): State
   switch (action.type) {
     case linkConstants.ADD_LINK: return {
       ...state,
-      links: state.links.concat(action.payload),
+      links: [action.payload, ...state.links],
     };
     case linkConstants.REMOVE_LINK: {
       return {
