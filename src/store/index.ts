@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
 const rootSagas = () => function* () {
   const sagas = [
     ...auth.sagas,
-    ...link.saga,
+    ...link.sagas,
   ];
 
   for (let i = 0; i < sagas.length; i += 1) {

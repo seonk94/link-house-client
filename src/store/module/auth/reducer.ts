@@ -1,4 +1,3 @@
-import Link from 'src/models/Link';
 import User from 'src/models/User';
 import { UserActionType, userConstants } from './actions';
 
