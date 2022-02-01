@@ -1,7 +1,7 @@
 import { Col, Row } from 'antd';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import FindPasswordForm from 'src/modules/FindPasswordForm';
+import FindPasswordForm from 'src/components/modules/FindPasswordForm';
 import { authService } from 'src/services/auth';
 
 const FindPassword = () => {

@@ -1,14 +1,14 @@
 import {
   Col, Divider, Row,
 } from 'antd';
-import UrlInput from 'src/atoms/UrlInput';
+import UrlInput from 'src/components/atoms/UrlInput';
 import React, { useState, useEffect } from 'react';
 import Link from 'src/models/Link';
-import LinkCard from 'src/atoms/LinkCard';
+import LinkCard from 'src/components/atoms/LinkCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'src/store';
 import linkActions from 'src/store/module/link/actions';
-import SignInAlert from 'src/atoms/SignInAlert';
+import SignInAlert from 'src/components/atoms/SignInAlert';
 
 const Home = () => {
   const [search, setSearch] = useState('');

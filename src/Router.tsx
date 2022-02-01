@@ -8,7 +8,7 @@ import { Row, Spin } from 'antd';
 import { History } from 'history';
 import User from './models/User';
 import userActions from './store/module/auth/actions';
-import Appbar from './modules/Appbar';
+import Appbar from './components/modules/Appbar';
 
 const Home = lazy(() => import('src/pages/Home'));
 const SignIn = lazy(() => import('src/pages/SignIn'));

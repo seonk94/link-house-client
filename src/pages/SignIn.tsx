@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Col, Divider, Form, Row,
 } from 'antd';
-import SignInForm from 'src/modules/SignInForm';
+import SignInForm from 'src/components/modules/SignInForm';
 import { useDispatch } from 'react-redux';
 import userActions, { userConstants } from 'src/store/module/auth/actions';
 

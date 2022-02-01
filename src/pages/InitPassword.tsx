@@ -1,7 +1,7 @@
 import { useHistory, useLocation } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { Col, Row } from 'antd';
-import InitPasswordForm from 'src/modules/InitPasswordForm';
+import InitPasswordForm from 'src/components/modules/InitPasswordForm';
 import { authService } from 'src/services/auth';
 
 const InitPassword = () => {

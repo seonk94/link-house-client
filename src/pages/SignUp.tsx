@@ -1,7 +1,7 @@
 import { Col, Row } from 'antd';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import SignUpForm from 'src/modules/SignUpForm';
+import SignUpForm from 'src/components/modules/SignUpForm';
 import userActions from 'src/store/module/auth/actions';
 
 const SignUp = () => {
