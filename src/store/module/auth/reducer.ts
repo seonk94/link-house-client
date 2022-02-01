@@ -3,7 +3,7 @@ import { UserActionType, userConstants } from './actions';
 
 type State = {
   user: null | User;
-  message: string;
+  message: unknown;
 }
 
 const initialState: State = {

@@ -3,7 +3,7 @@ import { LinkActionType, linkConstants } from './actions';
 
 type State = {
   links: Link[]
-  message: string;
+  message: unknown;
 }
 
 const initialState: State = {

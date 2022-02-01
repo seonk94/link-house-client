@@ -35,7 +35,7 @@ const linkActions = {
     type: linkConstants.PATCH_LINK,
     payload: link,
   }),
-  failLink: (message: string) => ({
+  failLink: (message: unknown) => ({
     type: linkConstants.FAIL_LINK,
     payload: message,
   }),

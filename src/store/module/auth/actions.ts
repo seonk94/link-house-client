@@ -24,7 +24,7 @@ const userActions = {
     type: userConstants.SIGNUP_USER,
     payload: input,
   }),
-  failUser: (message: string) => ({
+  failUser: (message: unknown) => ({
     type: userConstants.FAIL_USER,
     payload: message,
   }),
