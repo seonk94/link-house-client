@@ -11,7 +11,9 @@ export function postLinkApi<P, R>(params: P) {
   return client<R>({
     method: 'POST',
     url: '/api/links',
-    params,
+    data: {
+      uri: params,
+    },
   });
 }
 
@@ -34,6 +36,8 @@ export function getMetadataApi<P, R>(params: P) {
   return client<R>({
     method: 'POST',
     url: '/api/links/metadata',
-    params,
+    data: {
+      uri: params,
+    },
   });
 }

@@ -32,6 +32,9 @@ module.exports = {
     'no-undef': 0,
     'func-names': 0,
     'linebreak-style': 0,
+    'no-return-await': 0,
+    'class-methods-use-this': 0,
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+    'import/prefer-default-export': 0,
   },
 };

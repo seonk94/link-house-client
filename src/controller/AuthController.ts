@@ -1,9 +1,10 @@
 import { client } from 'src/api/client';
 
-export function signupApi<R, P>(params: P) {
+export function signupApi<P, R>(params: P) {
   return client<R>({
     method: 'POST',
     url: '/api/auth/signup',
+    data: params,
   });
 }
 
@@ -11,7 +12,7 @@ export function signinApi<P, R>(params: P) {
   return client<R>({
     method: 'POST',
     url: '/api/auth/signin',
-    params,
+    data: params,
   });
 }
 
@@ -26,7 +27,7 @@ export function findPasswordApi<P, R>(params: P) {
   return client<R>({
     method: 'POST',
     url: '/api/users/find',
-    params,
+    data: params,
   });
 }
 
@@ -34,6 +35,8 @@ export function updateUserApi<P, R>(seq: string, params: P) {
   return client<R>({
     method: 'PATCH',
     url: `/api/users/${seq}`,
-    params,
+    data: {
+      password: params,
+    },
   });
 }

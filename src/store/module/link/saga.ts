@@ -1,15 +1,14 @@
-import { AxiosResponse } from 'axios';
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { linkService } from 'src/services/link';
 import {
-  getLinksApi, getMetadataApi, patchLinkApi, postLinkApi, deleteLinkApi,
-} from 'src/controller';
+  call, put, SagaReturnType, takeEvery,
+} from 'redux-saga/effects';
 import Link from 'src/models/Link';
 import linkActions, { linkConstants } from './actions';
 
 function* handleFetch() {
   try {
-    const res : AxiosResponse<{ links: Link[] }> = yield call(getLinksApi);
-    yield put(linkActions.setLinks(res.data.links.map((link) => new Link(link))));
+    const res: SagaReturnType<typeof linkService.getLinks> = yield call(linkService.getLinks);
+    yield put(linkActions.setLinks(res.links.map((link) => new Link(link))));
   } catch (e) {
     yield put(linkActions.failLink(e));
   }
@@ -17,8 +16,8 @@ function* handleFetch() {
 
 function* handlePostLink(action: ReturnType<typeof linkActions.postLink>) {
   try {
-    const res : AxiosResponse<{ link: Link }> = yield call(postLinkApi, action.payload);
-    yield put(linkActions.addLink(new Link(res.data.link)));
+    const res : SagaReturnType<typeof linkService.postLink> = yield call(linkService.postLink, action.payload);
+    yield put(linkActions.addLink(new Link(res.link)));
   } catch (e) {
     yield put(linkActions.failLink(e));
   }
@@ -26,8 +25,8 @@ function* handlePostLink(action: ReturnType<typeof linkActions.postLink>) {
 
 function* handleLocalPostLink(action: ReturnType<typeof linkActions.postLocalLink>) {
   try {
-    const res : AxiosResponse<{ metadata: Link }> = yield call(getMetadataApi, action.payload);
-    yield put(linkActions.addLink(new Link(res.data.metadata)));
+    const res : SagaReturnType<typeof linkService.getMetadata> = yield call(linkService.getMetadata, action.payload);
+    yield put(linkActions.addLink(new Link(res.metadata)));
   } catch (e) {
     yield put(linkActions.failLink(e));
   }
@@ -35,8 +34,8 @@ function* handleLocalPostLink(action: ReturnType<typeof linkActions.postLocalLin
 
 function* handleUpdateLink(action: ReturnType<typeof linkActions.patchLink>) {
   try {
-    const res : AxiosResponse<{ link: Link }> = yield call(patchLinkApi, action.payload._id, action.payload);
-    yield put(linkActions.updateLink(new Link(res.data.link)));
+    const res : SagaReturnType<typeof linkService.patchLink> = yield call(linkService.patchLink, action.payload);
+    yield put(linkActions.updateLink(new Link(res.link)));
   } catch (e) {
     yield put(linkActions.failLink(e));
   }
@@ -44,8 +43,8 @@ function* handleUpdateLink(action: ReturnType<typeof linkActions.patchLink>) {
 
 function* handleDeleteLink(action: ReturnType<typeof linkActions.deleteLink>) {
   try {
-    const res : AxiosResponse<{ id: string }> = yield call(deleteLinkApi, action.payload);
-    yield put(linkActions.removeLink(res.data.id));
+    const res : SagaReturnType<typeof linkService.deleteLink> = yield call(linkService.deleteLink, action.payload);
+    yield put(linkActions.removeLink(res.id));
   } catch (e) {
     yield put(linkActions.failLink(e));
   }

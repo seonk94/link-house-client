@@ -1,18 +1,16 @@
-import { AxiosResponse } from 'axios';
+import { authService } from 'src/services/auth';
 import { History } from 'history';
 import {
-  call, getContext, put, takeEvery,
+  call, getContext, put, SagaReturnType, takeEvery,
 } from 'redux-saga/effects';
-import { getMeApi, signinApi, signupApi } from 'src/controller';
-import User from 'src/models/User';
 import userActions, { userConstants } from './actions';
 
 function* handleSignIn(action: ReturnType<typeof userActions.signInUser>) {
   const history : History = yield getContext('history');
   try {
-    const res : AxiosResponse<{ token: string, user: User }> = yield call(signinApi, action.payload);
-    localStorage.setItem('token', `Bearer ${res.data.token}`);
-    yield put(userActions.setUser(res.data.user));
+    const res : SagaReturnType<typeof authService.signin> = yield call(authService.signin, action.payload);
+    localStorage.setItem('token', `Bearer ${res.token}`);
+    yield put(userActions.setUser(res.user));
     history.push('/');
   } catch (e) {
     yield put(userActions.failUser(e));
@@ -21,9 +19,9 @@ function* handleSignIn(action: ReturnType<typeof userActions.signInUser>) {
 
 function* handleUpdateMe() {
   try {
-    const res : AxiosResponse<{ token: string, user: User }> = yield call(getMeApi);
-    localStorage.setItem('token', `Bearer ${res.data.token}`);
-    yield put(userActions.setUser(res.data.user));
+    const res : SagaReturnType<typeof authService.getMe> = yield call(authService.getMe);
+    localStorage.setItem('token', `Bearer ${res.token}`);
+    yield put(userActions.setUser(res.user));
   } catch (e) {
     yield put(userActions.failUser(e));
   }
@@ -32,7 +30,7 @@ function* handleUpdateMe() {
 function* handleSignUp(action: ReturnType<typeof userActions.signUpUser>) {
   const history : History = yield getContext('history');
   try {
-    const res : AxiosResponse<{ token: string, user: User }> = yield call(signupApi, action.payload);
+    const res : SagaReturnType<typeof authService.signup> = yield call(authService.signup, action.payload);
     history.push('/signin');
   } catch (e) {
     yield put(userActions.failUser(e));
