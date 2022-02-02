@@ -9,6 +9,7 @@ import { History } from 'history';
 import User from './models/User';
 import userActions from './store/module/auth/actions';
 import Appbar from './components/modules/Appbar';
+import { statusService } from './services/status';
 
 const Home = lazy(() => import('src/pages/Home'));
 const SignIn = lazy(() => import('src/pages/SignIn'));
@@ -39,20 +40,29 @@ function AuthRoute({
 
 const Root = ({ history } : { history: History }) => {
   const dispatch = useDispatch();
+
+  const checkStatus = () => {
+    statusService.getStatus();
+  };
+
   useEffect(() => {
+    checkStatus();
+
     const token = localStorage.getItem('token');
     if (token) {
       dispatch(userActions.fetchUser());
     }
   }, []);
+
   return (
-    <Layout style={{
-      minHeight: '100vh',
-    }}
-    >
-      <Appbar />
-      <Content style={{ padding: '24px', marginTop: '64px' }}>
-        <Router history={history}>
+    <Router history={history}>
+      <Layout style={{
+        minHeight: '100vh',
+      }}
+      >
+        <Appbar />
+        <Content style={{ padding: '24px', marginTop: '64px' }}>
+
           <Suspense fallback={(
             <Row justify="center" align="middle">
               <Spin size="large" />
@@ -67,9 +77,9 @@ const Root = ({ history } : { history: History }) => {
               <Route exact path="/init-password" component={InitPassword} />
             </Switch>
           </Suspense>
-        </Router>
-      </Content>
-    </Layout>
+        </Content>
+      </Layout>
+    </Router>
   );
 };
 export default Root;
