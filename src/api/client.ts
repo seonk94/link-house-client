@@ -1,4 +1,5 @@
 import Axios, { AxiosRequestConfig } from 'axios';
+import { getToken } from 'src/libs/helper';
 
 const axios = Axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
@@ -6,7 +7,10 @@ const axios = Axios.create({
 
 axios.interceptors.request.use(
   (config) => {
-    config.headers.Authorization = localStorage.getItem('token');
+    const token = getToken();
+    if (token) {
+      config.headers.Authorization = token;
+    }
     return config;
   },
   (error) => Promise.reject(error),

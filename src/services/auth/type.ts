@@ -7,7 +7,6 @@ export interface SIGNUP_PARAMS {
 }
 
 export interface SIGNUP_RESPONSE {
-  token: string;
   user: User
 }
 
@@ -18,11 +17,11 @@ export interface SIGNIN_PARAMS {
 
 export interface SIGNIN_RESPONSE {
   token: string;
-  user: User
+  user: User;
+  exp: string;
 }
 
 export interface GET_ME_RESPONSE {
-  token: string;
   user: User;
 }
 

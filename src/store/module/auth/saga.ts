@@ -9,7 +9,12 @@ function* handleSignIn(action: ReturnType<typeof userActions.signInUser>) {
   const history : History = yield getContext('history');
   try {
     const res : SagaReturnType<typeof authService.signin> = yield call(authService.signin, action.payload);
-    localStorage.setItem('token', `Bearer ${res.token}`);
+    const item = {
+      token: `Bearer ${res.token}`,
+      exp: res.exp,
+    };
+
+    localStorage.setItem('tokenObject', JSON.stringify(item));
     yield put(userActions.setUser(res.user));
     history.push('/');
   } catch (e) {
@@ -20,7 +25,6 @@ function* handleSignIn(action: ReturnType<typeof userActions.signInUser>) {
 function* handleUpdateMe() {
   try {
     const res : SagaReturnType<typeof authService.getMe> = yield call(authService.getMe);
-    localStorage.setItem('token', `Bearer ${res.token}`);
     yield put(userActions.setUser(res.user));
   } catch (e) {
     yield put(userActions.failUser(e));

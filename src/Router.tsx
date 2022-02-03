@@ -10,6 +10,7 @@ import User from './models/User';
 import userActions from './store/module/auth/actions';
 import Appbar from './components/modules/Appbar';
 import { statusService } from './services/status';
+import { getToken } from './libs/helper';
 
 const Home = lazy(() => import('src/pages/Home'));
 const SignIn = lazy(() => import('src/pages/SignIn'));
@@ -48,7 +49,7 @@ const Root = ({ history } : { history: History }) => {
   useEffect(() => {
     checkStatus();
 
-    const token = localStorage.getItem('token');
+    const token = getToken();
     if (token) {
       dispatch(userActions.fetchUser());
     }
