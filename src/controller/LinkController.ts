@@ -21,7 +21,9 @@ export function patchLinkApi<P, R>(seq: string, params: P) {
   return client<R>({
     method: 'PATCH',
     url: `/api/links/${seq}`,
-    params,
+    data: {
+      ...params,
+    },
   });
 }
 

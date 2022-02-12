@@ -72,7 +72,7 @@ const Home = () => {
       }
       <Row justify="start" gutter={[16, 16]}>
         {links.map((link) => (
-          <Col key={link._id} xs={24} md={12} lg={6}>
+          <Col key={link._id} xs={24} sm={24} md={12} lg={12} xl={8}>
             <LinkCard link={link} handleUpdate={handleUpdateLink(link)} handleDelete={handleDeleteLink} />
           </Col>
         ))}
