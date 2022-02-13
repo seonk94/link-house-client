@@ -9,9 +9,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'src/store';
 import linkActions from 'src/store/module/link/actions';
 import SignInAlert from 'src/components/atoms/SignInAlert';
+import RateModal from 'src/components/layout/RateModel';
 
 const Home = () => {
   const [search, setSearch] = useState('');
+  const [showRateModal, setShowRateModal] = useState(false);
+  const [watchLink, setWatchLink] = useState<null | Link>(null);
   const links = useSelector((state: RootState) => state.link.links);
   const user = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch();
@@ -31,7 +34,7 @@ const Home = () => {
       dispatch(linkActions.postLocalLink(search));
     }
     setSearch('');
-  }, [user, linkActions, search]);
+  }, [user, dispatch, linkActions, search]);
 
   const handleUpdateLink = useCallback((link: Link) => (partialLink: Partial<Link>) => {
     if (user) {
@@ -45,7 +48,7 @@ const Home = () => {
         ...partialLink,
       }));
     }
-  }, [user, linkActions]);
+  }, [user, dispatch, linkActions]);
 
   const handleDeleteLink = useCallback((link: Link) => {
     if (user) {
@@ -53,11 +56,31 @@ const Home = () => {
     } else {
       dispatch(linkActions.removeLink(link._id));
     }
-  }, [user, linkActions]);
+  }, [user, dispatch, linkActions]);
 
   const handleClickLink = useCallback((link: Link) => {
     window.open(link.url, '_blank');
-  }, []);
+    if (user) {
+      const newLink = new Link({
+        ...link,
+        watchAt: new Date().toISOString(),
+      });
+      setWatchLink(newLink);
+      dispatch(linkActions.patchLink(newLink));
+      setShowRateModal(true);
+    }
+  }, [user, dispatch, linkActions, setShowRateModal]);
+
+  const handleCloseRateModal = useCallback((grade?: number) => {
+    if (watchLink && grade && user) {
+      dispatch(linkActions.patchLink({
+        ...watchLink,
+        grade,
+      }));
+      setWatchLink(null);
+    }
+    setShowRateModal(false);
+  }, [watchLink, dispatch, setWatchLink, user, setShowRateModal, linkActions]);
 
   return (
     <>
@@ -81,6 +104,9 @@ const Home = () => {
           </Col>
         ))}
       </Row>
+      {
+        showRateModal && <RateModal show={showRateModal} handleClose={handleCloseRateModal} />
+      }
     </>
   );
 };

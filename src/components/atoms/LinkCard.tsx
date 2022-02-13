@@ -1,16 +1,28 @@
 import {
   Button,
-  Card, Col, Image, Rate, Row,
+  Card, Col, Dropdown, Image, Menu, Rate, Row,
 } from 'antd';
 import React, { useCallback, useEffect } from 'react';
 import Link from 'src/models/Link';
 import NotFoundImage from 'src/assets/images/NotFound.png';
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, MoreOutlined } from '@ant-design/icons';
 import { animated, useSpring } from 'react-spring';
 import styled from 'styled-components';
 
 const HeaderRow = styled(Row)`
   padding: 8px;
+`;
+
+const HeaderTitle = styled.div`
+  width: calc(100% - 24px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const HeaderIcon = styled.div`
+  width: 24px;
+  height: 24px;
 `;
 
 const ContentRow = styled(Row)`
@@ -21,6 +33,15 @@ const ContentRow = styled(Row)`
 const ActionRow = styled(Row)`
   padding: 8px;
   align-items: center;
+`;
+
+const IsWatch = styled.span`
+  font-size: 12px;
+  color: #595959;
+`;
+const IsNotWatch = styled.span`
+  font-size: 12px;
+  font-weight: bold;
 `;
 
 interface Props {
@@ -43,21 +64,39 @@ const LinkCard = ({
     to: { opacity: 1, y: '0px' },
   }));
 
+  const handleClickHeaderIcon = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+  }, []);
+
+  const DropdownMenu = (
+    <Menu>
+      <Menu.Item onClick={() => handleDelete(link)}>삭제</Menu.Item>
+    </Menu>
+  );
+
   return (
     <animated.div style={{ ...styles }}>
       <Card
+        hoverable
+        onClick={() => handleClick(link)}
         bodyStyle={{
           padding: 0,
         }}
+        style={{
+          borderRadius: '8px',
+        }}
       >
-        <HeaderRow align="middle" justify="center">
-          <Col xs={24} style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <HeaderRow align="middle">
+          <HeaderTitle>
+            🌐
             {link.url}
-          </Col>
-          {/* <Col xs={12} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
 
-            <DeleteOutlined style={{ paddingLeft: '8px' }} onClick={() => handleDelete(link)} />
-          </Col> */}
+          </HeaderTitle>
+          <HeaderIcon>
+            <Dropdown trigger={['click']} placement="bottomLeft" overlay={DropdownMenu}>
+              <Button onClick={handleClickHeaderIcon} shape="circle" size="small" icon={<MoreOutlined />} />
+            </Dropdown>
+          </HeaderIcon>
 
         </HeaderRow>
         {/* <a href={link.url} target="_blank" rel="noreferrer" style={aStyle}> */}
@@ -104,6 +143,7 @@ const LinkCard = ({
                 width={80}
                 alt={link.title}
                 src={link.image || NotFoundImage}
+                style={{ borderRadius: '8px' }}
               />
             </div>
           </Col>
@@ -111,12 +151,17 @@ const LinkCard = ({
         {/* </a> */}
         <ActionRow>
           <Col sm={12}>
-            <Rate allowHalf value={link.grade} onChange={(value) => handleUpdate({ grade: value })} />
+            {/* <Rate allowHalf value={link.grade} onChange={(value) => handleUpdate({ grade: value })} /> */}
           </Col>
           <Col sm={12}>
             <Row justify="end">
-              <Button type="primary" style={{ marginRight: '4px' }} onClick={() => handleClick(link)}>새 탭 열기</Button>
-              <Button onClick={() => handleDelete(link)}>삭제</Button>
+              {
+                link.watchAt
+                  ? <IsWatch>✔️읽음</IsWatch>
+                  : <IsNotWatch>✨안읽음</IsNotWatch>
+              }
+              {/* <Button type="primary" style={{ marginRight: '4px' }} onClick={() => handleClick(link)}>새 탭 열기</Button>
+              <Button onClick={() => handleDelete(link)}>삭제</Button> */}
             </Row>
           </Col>
         </ActionRow>
