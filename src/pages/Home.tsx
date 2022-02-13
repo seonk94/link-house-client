@@ -65,11 +65,16 @@ const Home = () => {
         ...link,
         watchAt: new Date().toISOString(),
       });
-      setWatchLink(newLink);
+      handleShowRateModal(newLink);
+
       dispatch(linkActions.patchLink(newLink));
-      setShowRateModal(true);
     }
   }, [user, dispatch, linkActions, setShowRateModal]);
+
+  const handleShowRateModal = useCallback((link: Link) => {
+    setWatchLink(link);
+    setShowRateModal(true);
+  }, []);
 
   const handleCloseRateModal = useCallback((grade?: number) => {
     if (watchLink && grade && user) {
@@ -100,7 +105,7 @@ const Home = () => {
       <Row justify="start" gutter={[16, 16]}>
         {links.map((link) => (
           <Col key={link._id} xs={24} sm={24} md={12} lg={12} xl={8}>
-            <LinkCard link={link} handleUpdate={handleUpdateLink(link)} handleDelete={handleDeleteLink} handleClick={handleClickLink} />
+            <LinkCard link={link} handleUpdate={handleUpdateLink(link)} handleShowRateModal={handleShowRateModal} handleDelete={handleDeleteLink} handleClick={handleClickLink} />
           </Col>
         ))}
       </Row>

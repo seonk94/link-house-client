@@ -49,9 +49,10 @@ interface Props {
   handleUpdate: (partialLink: Partial<Link>) => void;
   handleDelete: (link: Link) => void;
   handleClick: (link: Link) => void;
+  handleShowRateModal: (link: Link) => void;
 }
 const LinkCard = ({
-  link, handleUpdate, handleDelete, handleClick,
+  link, handleUpdate, handleDelete, handleClick, handleShowRateModal,
 }: Props) => {
   const aStyle = {
     display: 'block',
@@ -64,13 +65,19 @@ const LinkCard = ({
     to: { opacity: 1, y: '0px' },
   }));
 
-  const handleClickHeaderIcon = useCallback((e: React.MouseEvent<HTMLElement>) => {
+  const handleStopEvent = useCallback((e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
+  }, []);
+
+  const check = useCallback((callback: (link: Link) => void) => (info: any) => {
+    info.domEvent.stopPropagation();
+    callback(link);
   }, []);
 
   const DropdownMenu = (
     <Menu>
-      <Menu.Item onClick={() => handleDelete(link)}>삭제</Menu.Item>
+      <Menu.Item key="delete" onClick={check(handleDelete)}>삭제</Menu.Item>
+      <Menu.Item key="rate" onClick={check(handleShowRateModal)}>평점</Menu.Item>
     </Menu>
   );
 
@@ -94,7 +101,7 @@ const LinkCard = ({
           </HeaderTitle>
           <HeaderIcon>
             <Dropdown trigger={['click']} placement="bottomLeft" overlay={DropdownMenu}>
-              <Button onClick={handleClickHeaderIcon} shape="circle" size="small" icon={<MoreOutlined />} />
+              <Button onClick={handleStopEvent} shape="circle" size="small" icon={<MoreOutlined />} />
             </Dropdown>
           </HeaderIcon>
 

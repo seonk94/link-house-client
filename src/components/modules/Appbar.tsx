@@ -35,7 +35,7 @@ const Appbar = () => {
     }}
     >
       <Row justify="space-between">
-        <ClickableHeader onClick={handleClickHeader}>LinkHouse</ClickableHeader>
+        <ClickableHeader onClick={handleClickHeader}>🏠LinkHouse</ClickableHeader>
         <div>
           <Dropdown
             trigger={['click']}
