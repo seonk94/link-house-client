@@ -2,7 +2,7 @@ import {
   Col, Divider, Row,
 } from 'antd';
 import UrlInput from 'src/components/atoms/UrlInput';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'src/models/Link';
 import LinkCard from 'src/components/atoms/LinkCard';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,18 +22,18 @@ const Home = () => {
     }
   }, [user]);
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value);
+  const handleInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value), []);
 
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     if (user) {
       dispatch(linkActions.postLink(search));
     } else {
       dispatch(linkActions.postLocalLink(search));
     }
     setSearch('');
-  };
+  }, [user, linkActions, search]);
 
-  const handleUpdateLink = (link: Link) => (partialLink: Partial<Link>) => {
+  const handleUpdateLink = useCallback((link: Link) => (partialLink: Partial<Link>) => {
     if (user) {
       dispatch(linkActions.patchLink({
         ...link,
@@ -45,15 +45,19 @@ const Home = () => {
         ...partialLink,
       }));
     }
-  };
+  }, [user, linkActions]);
 
-  const handleDeleteLink = (link: Link) => {
+  const handleDeleteLink = useCallback((link: Link) => {
     if (user) {
       dispatch(linkActions.deleteLink(link._id));
     } else {
       dispatch(linkActions.removeLink(link._id));
     }
-  };
+  }, [user, linkActions]);
+
+  const handleClickLink = useCallback((link: Link) => {
+    window.open(link.url, '_blank');
+  }, []);
 
   return (
     <>
@@ -73,7 +77,7 @@ const Home = () => {
       <Row justify="start" gutter={[16, 16]}>
         {links.map((link) => (
           <Col key={link._id} xs={24} sm={24} md={12} lg={12} xl={8}>
-            <LinkCard link={link} handleUpdate={handleUpdateLink(link)} handleDelete={handleDeleteLink} />
+            <LinkCard link={link} handleUpdate={handleUpdateLink(link)} handleDelete={handleDeleteLink} handleClick={handleClickLink} />
           </Col>
         ))}
       </Row>
