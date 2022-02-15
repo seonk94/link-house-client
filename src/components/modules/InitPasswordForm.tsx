@@ -1,6 +1,4 @@
-import {
-  Form, Input, Button,
-} from 'antd';
+import { Button, Form, Input } from 'antd';
 import React from 'react';
 
 interface Props {
@@ -15,7 +13,6 @@ const InitPasswordForm = ({ handleFinish }: Props) => (
     onFinish={handleFinish}
     initialValues={{ layout: 'horizontal' }}
   >
-
     <Form.Item
       label="New Password"
       name="password"

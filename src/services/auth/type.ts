@@ -7,7 +7,7 @@ export interface SIGNUP_PARAMS {
 }
 
 export interface SIGNUP_RESPONSE {
-  user: User
+  user: User;
 }
 
 export interface SIGNIN_PARAMS {
@@ -40,5 +40,5 @@ export interface UPDATE_USER_PARAMS {
 }
 
 export interface UPDATE_USER_RESPONSE {
-  user: User
+  user: User;
 }

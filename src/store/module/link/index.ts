@@ -1,6 +1,6 @@
 import reducer from './reducer';
-import sagas from './saga';
 import * as actions from './reducer';
+import sagas from './saga';
 
 export default {
   reducer,

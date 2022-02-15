@@ -1,16 +1,15 @@
-import Layout, { Content } from 'antd/lib/layout/layout';
-import React, { useEffect, lazy, Suspense } from 'react';
-import {
-  BrowserRouter, Redirect, Route, Router, Switch,
-} from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { Row, Spin } from 'antd';
+import Layout, { Content } from 'antd/lib/layout/layout';
 import { History } from 'history';
-import User from './models/User';
-import userActions from './store/module/auth/actions';
+import React, { lazy, Suspense, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { BrowserRouter, Redirect, Route, Router, Switch } from 'react-router-dom';
+
 import Appbar from './components/modules/Appbar';
-import { statusService } from './services/status';
 import { getToken } from './libs/helper';
+import User from './models/User';
+import { statusService } from './services/status';
+import userActions from './store/module/auth/actions';
 
 const Home = lazy(() => import('src/pages/Home'));
 const SignIn = lazy(() => import('src/pages/SignIn'));
@@ -19,27 +18,20 @@ const FindPassword = lazy(() => import('src/pages/FindPassword'));
 const InitPassword = lazy(() => import('src/pages/InitPassword'));
 
 function AuthRoute({
-  user, component, path, exact,
-} : {
-  user: User | null,
-  exact: boolean,
-  component: React.LazyExoticComponent<() => JSX.Element>,
-  path: string,
+  user,
+  component,
+  path,
+  exact,
+}: {
+  user: User | null;
+  exact: boolean;
+  component: React.LazyExoticComponent<() => JSX.Element>;
+  path: string;
 }) {
-  return (
-    user
-      ? (
-        <Route
-          exact={exact}
-          path={path}
-          component={component}
-        />
-      )
-      : <Redirect to={{ pathname: '/signin' }} />
-  );
+  return user ? <Route exact={exact} path={path} component={component} /> : <Redirect to={{ pathname: '/signin' }} />;
 }
 
-const Root = ({ history } : { history: History }) => {
+const Root = ({ history }: { history: History }) => {
   const dispatch = useDispatch();
 
   const checkStatus = () => {
@@ -57,18 +49,19 @@ const Root = ({ history } : { history: History }) => {
 
   return (
     <Router history={history}>
-      <Layout style={{
-        minHeight: '100vh',
-      }}
+      <Layout
+        style={{
+          minHeight: '100vh',
+        }}
       >
         <Appbar />
         <Content style={{ padding: '24px', marginTop: '64px' }}>
-
-          <Suspense fallback={(
-            <Row justify="center" align="middle">
-              <Spin size="large" />
-            </Row>
-            )}
+          <Suspense
+            fallback={
+              <Row justify="center" align="middle">
+                <Spin size="large" />
+              </Row>
+            }
           >
             <Switch>
               <Route exact path="/" component={Home} />

@@ -1,8 +1,7 @@
-import { linkService } from 'src/services/link';
-import {
-  call, put, SagaReturnType, takeEvery,
-} from 'redux-saga/effects';
+import { call, put, SagaReturnType, takeEvery } from 'redux-saga/effects';
 import Link from 'src/models/Link';
+import { linkService } from 'src/services/link';
+
 import linkActions, { linkConstants } from './actions';
 
 function* handleFetch() {
@@ -16,7 +15,7 @@ function* handleFetch() {
 
 function* handlePostLink(action: ReturnType<typeof linkActions.postLink>) {
   try {
-    const res : SagaReturnType<typeof linkService.postLink> = yield call(linkService.postLink, action.payload);
+    const res: SagaReturnType<typeof linkService.postLink> = yield call(linkService.postLink, action.payload);
     yield put(linkActions.addLink(new Link(res.link)));
   } catch (e) {
     yield put(linkActions.failLink(e));
@@ -25,7 +24,7 @@ function* handlePostLink(action: ReturnType<typeof linkActions.postLink>) {
 
 function* handleLocalPostLink(action: ReturnType<typeof linkActions.postLocalLink>) {
   try {
-    const res : SagaReturnType<typeof linkService.getMetadata> = yield call(linkService.getMetadata, action.payload);
+    const res: SagaReturnType<typeof linkService.getMetadata> = yield call(linkService.getMetadata, action.payload);
     yield put(linkActions.addLink(new Link(res.metadata)));
   } catch (e) {
     yield put(linkActions.failLink(e));
@@ -34,7 +33,7 @@ function* handleLocalPostLink(action: ReturnType<typeof linkActions.postLocalLin
 
 function* handleUpdateLink(action: ReturnType<typeof linkActions.patchLink>) {
   try {
-    const res : SagaReturnType<typeof linkService.patchLink> = yield call(linkService.patchLink, action.payload);
+    const res: SagaReturnType<typeof linkService.patchLink> = yield call(linkService.patchLink, action.payload);
     yield put(linkActions.updateLink(new Link(res.link)));
   } catch (e) {
     yield put(linkActions.failLink(e));
@@ -43,7 +42,7 @@ function* handleUpdateLink(action: ReturnType<typeof linkActions.patchLink>) {
 
 function* handleDeleteLink(action: ReturnType<typeof linkActions.deleteLink>) {
   try {
-    const res : SagaReturnType<typeof linkService.deleteLink> = yield call(linkService.deleteLink, action.payload);
+    const res: SagaReturnType<typeof linkService.deleteLink> = yield call(linkService.deleteLink, action.payload);
     yield put(linkActions.removeLink(res.id));
   } catch (e) {
     yield put(linkActions.failLink(e));

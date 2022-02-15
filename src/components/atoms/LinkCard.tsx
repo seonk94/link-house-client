@@ -1,12 +1,9 @@
-import {
-  Button,
-  Card, Col, Dropdown, Image, Menu, Rate, Row,
-} from 'antd';
-import React, { useCallback, useEffect } from 'react';
-import Link from 'src/models/Link';
-import NotFoundImage from 'src/assets/images/NotFound.png';
 import { DeleteOutlined, MoreOutlined } from '@ant-design/icons';
+import { Button, Card, Col, Dropdown, Image, Menu, Rate, Row } from 'antd';
+import React, { useCallback, useEffect } from 'react';
 import { animated, useSpring } from 'react-spring';
+import NotFoundImage from 'src/assets/images/NotFound.png';
+import Link from 'src/models/Link';
 import styled from 'styled-components';
 
 const HeaderRow = styled(Row)`
@@ -51,9 +48,7 @@ interface Props {
   handleClick: (link: Link) => void;
   handleShowRateModal: (link: Link) => void;
 }
-const LinkCard = ({
-  link, handleUpdate, handleDelete, handleClick, handleShowRateModal,
-}: Props) => {
+const LinkCard = ({ link, handleUpdate, handleDelete, handleClick, handleShowRateModal }: Props) => {
   const aStyle = {
     display: 'block',
     color: 'inherit',
@@ -69,15 +64,22 @@ const LinkCard = ({
     e.stopPropagation();
   }, []);
 
-  const check = useCallback((callback: (link: Link) => void) => (info: any) => {
-    info.domEvent.stopPropagation();
-    callback(link);
-  }, []);
+  const check = useCallback(
+    (callback: (link: Link) => void) => (info: any) => {
+      info.domEvent.stopPropagation();
+      callback(link);
+    },
+    [],
+  );
 
   const DropdownMenu = (
     <Menu>
-      <Menu.Item key="delete" onClick={check(handleDelete)}>삭제</Menu.Item>
-      <Menu.Item key="rate" onClick={check(handleShowRateModal)}>평점</Menu.Item>
+      <Menu.Item key="delete" onClick={check(handleDelete)}>
+        삭제
+      </Menu.Item>
+      <Menu.Item key="rate" onClick={check(handleShowRateModal)}>
+        평점
+      </Menu.Item>
     </Menu>
   );
 
@@ -97,42 +99,40 @@ const LinkCard = ({
           <HeaderTitle>
             🌐
             {link.url}
-
           </HeaderTitle>
           <HeaderIcon>
             <Dropdown trigger={['click']} placement="bottomLeft" overlay={DropdownMenu}>
               <Button onClick={handleStopEvent} shape="circle" size="small" icon={<MoreOutlined />} />
             </Dropdown>
           </HeaderIcon>
-
         </HeaderRow>
         {/* <a href={link.url} target="_blank" rel="noreferrer" style={aStyle}> */}
         <ContentRow>
-
           <Col span={16}>
             <div style={{ padding: '12px' }}>
-              <h4 style={{
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}
-              >
-                {link.title}
-
-              </h4>
-              <div style={{ flex: '1 1 0%' }}>
-                <p style={{
-                  minHeight: '44px',
-                  lineHeight: '22px',
+              <h4
+                style={{
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
-                  WebkitLineClamp: 2,
-                  WebkitBoxOrient: 'vertical',
-                  wordBreak: 'break-word',
-                  display: '-webkit-box',
-                  color: 'rgba(0, 0, 0, 0.45)',
-                  margin: 0,
+                  whiteSpace: 'nowrap',
                 }}
+              >
+                {link.title}
+              </h4>
+              <div style={{ flex: '1 1 0%' }}>
+                <p
+                  style={{
+                    minHeight: '44px',
+                    lineHeight: '22px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    wordBreak: 'break-word',
+                    display: '-webkit-box',
+                    color: 'rgba(0, 0, 0, 0.45)',
+                    margin: 0,
+                  }}
                 >
                   {link.description}
                 </p>
@@ -140,9 +140,14 @@ const LinkCard = ({
             </div>
           </Col>
           <Col span={8}>
-            <div style={{
-              background: '#e6e6e6', display: 'flex', justifyContent: 'center', height: '100%', alignItems: 'center',
-            }}
+            <div
+              style={{
+                background: '#e6e6e6',
+                display: 'flex',
+                justifyContent: 'center',
+                height: '100%',
+                alignItems: 'center',
+              }}
             >
               <Image
                 preview={false}
@@ -162,11 +167,7 @@ const LinkCard = ({
           </Col>
           <Col sm={12}>
             <Row justify="end">
-              {
-                link.watchAt
-                  ? <IsWatch>✔️읽음</IsWatch>
-                  : <IsNotWatch>✨안읽음</IsNotWatch>
-              }
+              {link.watchAt ? <IsWatch>✔️읽음</IsWatch> : <IsNotWatch>✨안읽음</IsNotWatch>}
               {/* <Button type="primary" style={{ marginRight: '4px' }} onClick={() => handleClick(link)}>새 탭 열기</Button>
               <Button onClick={() => handleDelete(link)}>삭제</Button> */}
             </Row>

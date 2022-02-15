@@ -1,13 +1,11 @@
-import {
-  Form, Input, Button,
-} from 'antd';
+import { Button, Form, Input } from 'antd';
 import React from 'react';
 
 interface Props {
-  signUp: (values: { email: string, password: string, passwordConfirm: string, name: string }) => void;
+  signUp: (values: { email: string; password: string; passwordConfirm: string; name: string }) => void;
 }
 const SignUpForm = ({ signUp }: Props) => {
-  const onFinish = (values: { email: string, password: string, passwordConfirm: string, name: string }) => {
+  const onFinish = (values: { email: string; password: string; passwordConfirm: string; name: string }) => {
     signUp(values);
   };
   return (
@@ -26,11 +24,7 @@ const SignUpForm = ({ signUp }: Props) => {
         <Input />
       </Form.Item>
 
-      <Form.Item
-        label="name"
-        name="name"
-        rules={[{ required: true, message: 'Please input your name!' }]}
-      >
+      <Form.Item label="name" name="name" rules={[{ required: true, message: 'Please input your name!' }]}>
         <Input />
       </Form.Item>
 

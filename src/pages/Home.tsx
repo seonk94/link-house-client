@@ -1,15 +1,13 @@
-import {
-  Col, Divider, Row,
-} from 'antd';
-import UrlInput from 'src/components/atoms/UrlInput';
-import React, { useState, useEffect, useCallback } from 'react';
-import Link from 'src/models/Link';
-import LinkCard from 'src/components/atoms/LinkCard';
+import { Col, Divider, Row } from 'antd';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import LinkCard from 'src/components/atoms/LinkCard';
+import SignInAlert from 'src/components/atoms/SignInAlert';
+import UrlInput from 'src/components/atoms/UrlInput';
+import RateModal from 'src/components/layout/RateModel';
+import Link from 'src/models/Link';
 import { RootState } from 'src/store';
 import linkActions from 'src/store/module/link/actions';
-import SignInAlert from 'src/components/atoms/SignInAlert';
-import RateModal from 'src/components/layout/RateModel';
 
 const Home = () => {
   const [search, setSearch] = useState('');
@@ -36,56 +34,74 @@ const Home = () => {
     setSearch('');
   }, [user, dispatch, linkActions, search]);
 
-  const handleUpdateLink = useCallback((link: Link) => (partialLink: Partial<Link>) => {
-    if (user) {
-      dispatch(linkActions.patchLink({
-        ...link,
-        ...partialLink,
-      }));
-    } else {
-      dispatch(linkActions.updateLink({
-        ...link,
-        ...partialLink,
-      }));
-    }
-  }, [user, dispatch, linkActions]);
+  const handleUpdateLink = useCallback(
+    (link: Link) => (partialLink: Partial<Link>) => {
+      if (user) {
+        dispatch(
+          linkActions.patchLink({
+            ...link,
+            ...partialLink,
+          }),
+        );
+      } else {
+        dispatch(
+          linkActions.updateLink({
+            ...link,
+            ...partialLink,
+          }),
+        );
+      }
+    },
+    [user, dispatch, linkActions],
+  );
 
-  const handleDeleteLink = useCallback((link: Link) => {
-    if (user) {
-      dispatch(linkActions.deleteLink(link._id));
-    } else {
-      dispatch(linkActions.removeLink(link._id));
-    }
-  }, [user, dispatch, linkActions]);
+  const handleDeleteLink = useCallback(
+    (link: Link) => {
+      if (user) {
+        dispatch(linkActions.deleteLink(link._id));
+      } else {
+        dispatch(linkActions.removeLink(link._id));
+      }
+    },
+    [user, dispatch, linkActions],
+  );
 
-  const handleClickLink = useCallback((link: Link) => {
-    window.open(link.url, '_blank');
-    if (user) {
-      const newLink = new Link({
-        ...link,
-        watchAt: new Date().toISOString(),
-      });
-      handleShowRateModal(newLink);
+  const handleClickLink = useCallback(
+    (link: Link) => {
+      window.open(link.url, '_blank');
+      if (user) {
+        const newLink = new Link({
+          ...link,
+          watchAt: new Date().toISOString(),
+        });
+        handleShowRateModal(newLink);
 
-      dispatch(linkActions.patchLink(newLink));
-    }
-  }, [user, dispatch, linkActions, setShowRateModal]);
+        dispatch(linkActions.patchLink(newLink));
+      }
+    },
+    [user, dispatch, linkActions, setShowRateModal],
+  );
 
   const handleShowRateModal = useCallback((link: Link) => {
     setWatchLink(link);
     setShowRateModal(true);
   }, []);
 
-  const handleCloseRateModal = useCallback((grade?: number) => {
-    if (watchLink && grade && user) {
-      dispatch(linkActions.patchLink({
-        ...watchLink,
-        grade,
-      }));
-      setWatchLink(null);
-    }
-    setShowRateModal(false);
-  }, [watchLink, dispatch, setWatchLink, user, setShowRateModal, linkActions]);
+  const handleCloseRateModal = useCallback(
+    (grade?: number) => {
+      if (watchLink && grade && user) {
+        dispatch(
+          linkActions.patchLink({
+            ...watchLink,
+            grade,
+          }),
+        );
+        setWatchLink(null);
+      }
+      setShowRateModal(false);
+    },
+    [watchLink, dispatch, setWatchLink, user, setShowRateModal, linkActions],
+  );
 
   return (
     <>
@@ -95,23 +111,21 @@ const Home = () => {
         </Col>
       </Row>
       <Divider />
-      {
-        user
-          ? undefined
-          : (
-            <SignInAlert />
-          )
-      }
+      {user ? undefined : <SignInAlert />}
       <Row justify="start" gutter={[16, 16]}>
         {links.map((link) => (
           <Col key={link._id} xs={24} sm={24} md={12} lg={12} xl={8}>
-            <LinkCard link={link} handleUpdate={handleUpdateLink(link)} handleShowRateModal={handleShowRateModal} handleDelete={handleDeleteLink} handleClick={handleClickLink} />
+            <LinkCard
+              link={link}
+              handleUpdate={handleUpdateLink(link)}
+              handleShowRateModal={handleShowRateModal}
+              handleDelete={handleDeleteLink}
+              handleClick={handleClickLink}
+            />
           </Col>
         ))}
       </Row>
-      {
-        showRateModal && <RateModal show={showRateModal} handleClose={handleCloseRateModal} />
-      }
+      {showRateModal && <RateModal show={showRateModal} handleClose={handleCloseRateModal} />}
     </>
   );
 };

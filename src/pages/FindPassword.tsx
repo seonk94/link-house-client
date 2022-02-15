@@ -6,7 +6,7 @@ import { authService } from 'src/services/auth';
 
 const FindPassword = () => {
   const history = useHistory();
-  const handleFindPassword = async (values: { email : string, name : string}) => {
+  const handleFindPassword = async (values: { email: string; name: string }) => {
     const res = await authService.findPassword(values);
     if (res.userId) {
       history.push(`/init-password?id=${res.userId}`);

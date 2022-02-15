@@ -1,6 +1,6 @@
-import { useHistory, useLocation } from 'react-router-dom';
-import React, { useEffect } from 'react';
 import { Col, Row } from 'antd';
+import React, { useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import InitPasswordForm from 'src/components/modules/InitPasswordForm';
 import { authService } from 'src/services/auth';
 

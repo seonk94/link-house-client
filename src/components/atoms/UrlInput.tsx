@@ -7,5 +7,13 @@ interface Props {
   handleSearch: () => void;
 }
 
-const UrlInput = ({ handleInput, handleSearch, value } : Props) => <Input.Search placeholder="URL 주소를 입력해주세요." type="url" onInput={handleInput} value={value} onSearch={handleSearch} />;
+const UrlInput = ({ handleInput, handleSearch, value }: Props) => (
+  <Input.Search
+    placeholder="URL 주소를 입력해주세요."
+    type="url"
+    onInput={handleInput}
+    value={value}
+    onSearch={handleSearch}
+  />
+);
 export default UrlInput;

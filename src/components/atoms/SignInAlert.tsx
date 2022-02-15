@@ -9,7 +9,13 @@ const SignInAlert = () => (
     closable
     type="info"
     message="If you do not log in, it will not be saved."
-    action={<a href="/signin"><Button size="small" type="primary">SignIn</Button></a>}
+    action={
+      <a href="/signin">
+        <Button size="small" type="primary">
+          SignIn
+        </Button>
+      </a>
+    }
   />
 );
 

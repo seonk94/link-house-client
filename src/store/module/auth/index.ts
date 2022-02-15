@@ -1,5 +1,5 @@
-import reducer from './reducer';
 import userActions from './actions';
+import reducer from './reducer';
 import sagas from './saga';
 
 export default {

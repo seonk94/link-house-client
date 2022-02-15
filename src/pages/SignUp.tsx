@@ -6,7 +6,7 @@ import userActions from 'src/store/module/auth/actions';
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  const handleSignUp = (values: { email: string, password: string, passwordConfirm: string, name: string }) => {
+  const handleSignUp = (values: { email: string; password: string; passwordConfirm: string; name: string }) => {
     dispatch(userActions.signUpUser(values));
   };
   return (

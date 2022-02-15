@@ -1,14 +1,13 @@
-import { authService } from 'src/services/auth';
 import { History } from 'history';
-import {
-  call, getContext, put, SagaReturnType, takeEvery,
-} from 'redux-saga/effects';
+import { call, getContext, put, SagaReturnType, takeEvery } from 'redux-saga/effects';
+import { authService } from 'src/services/auth';
+
 import userActions, { userConstants } from './actions';
 
 function* handleSignIn(action: ReturnType<typeof userActions.signInUser>) {
-  const history : History = yield getContext('history');
+  const history: History = yield getContext('history');
   try {
-    const res : SagaReturnType<typeof authService.signin> = yield call(authService.signin, action.payload);
+    const res: SagaReturnType<typeof authService.signin> = yield call(authService.signin, action.payload);
     const item = {
       token: `Bearer ${res.token}`,
       exp: res.exp,
@@ -24,7 +23,7 @@ function* handleSignIn(action: ReturnType<typeof userActions.signInUser>) {
 
 function* handleUpdateMe() {
   try {
-    const res : SagaReturnType<typeof authService.getMe> = yield call(authService.getMe);
+    const res: SagaReturnType<typeof authService.getMe> = yield call(authService.getMe);
     yield put(userActions.setUser(res.user));
   } catch (e) {
     yield put(userActions.failUser(e));
@@ -32,9 +31,9 @@ function* handleUpdateMe() {
 }
 
 function* handleSignUp(action: ReturnType<typeof userActions.signUpUser>) {
-  const history : History = yield getContext('history');
+  const history: History = yield getContext('history');
   try {
-    const res : SagaReturnType<typeof authService.signup> = yield call(authService.signup, action.payload);
+    const res: SagaReturnType<typeof authService.signup> = yield call(authService.signup, action.payload);
     history.push('/signin');
   } catch (e) {
     yield put(userActions.failUser(e));

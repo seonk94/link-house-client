@@ -1,12 +1,14 @@
+import 'antd/dist/antd.css';
+
+import { createBrowserHistory } from 'history';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Root from 'src/Router';
+import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { Provider } from 'react-redux';
-import { createBrowserHistory } from 'history';
+import Root from 'src/Router';
+
 import reportWebVitals from './reportWebVitals';
-import 'antd/dist/antd.css';
 import redux from './store';
 
 const history = createBrowserHistory();

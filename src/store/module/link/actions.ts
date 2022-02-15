@@ -66,6 +66,6 @@ export type LinkActionType =
   | ReturnType<typeof linkActions.postLink>
   | ReturnType<typeof linkActions.patchLink>
   | ReturnType<typeof linkActions.postLocalLink>
-  | ReturnType<typeof linkActions.deleteLink>
+  | ReturnType<typeof linkActions.deleteLink>;
 
 export default linkActions;

@@ -3,10 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: [
-    'plugin:react/recommended',
-    'airbnb',
-  ],
+  extends: ['plugin:react/recommended', 'plugin:prettier/recommended'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -15,11 +12,14 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-    '@typescript-eslint',
-  ],
+  plugins: ['react', 'prettier', '@typescript-eslint', 'simple-import-sort'],
   rules: {
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
     'max-len': 0,
     'no-shadow': 0,
     'no-alert': 0,
@@ -38,5 +38,8 @@ module.exports = {
     'import/prefer-default-export': 0,
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/no-noninteractive-element-interactions': 0,
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
+    'react/jsx-wrap-multilines': 0,
   },
 };

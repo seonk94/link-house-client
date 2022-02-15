@@ -1,9 +1,12 @@
-import {
-  deleteLinkApi, getLinksApi, getMetadataApi, patchLinkApi, postLinkApi,
-} from 'src/controller';
+import { deleteLinkApi, getLinksApi, getMetadataApi, patchLinkApi, postLinkApi } from 'src/controller';
 import Link from 'src/models/Link';
+
 import {
-  GET_LINKS_RESPONSE, PATCH_LINK_RESPONSE, POST_LINK_RESPONSE, DELETE_LINK_RESPONSE, GET_METADATA_RESPONSE,
+  DELETE_LINK_RESPONSE,
+  GET_LINKS_RESPONSE,
+  GET_METADATA_RESPONSE,
+  PATCH_LINK_RESPONSE,
+  POST_LINK_RESPONSE,
 } from './type';
 
 class LinkService {

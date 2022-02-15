@@ -19,9 +19,7 @@ export default class Link {
 
   public watchAt: string | null;
 
-  constructor(
-    link: Pick<Link, '_id' | 'uri'> & Partial<Link>,
-  ) {
+  constructor(link: Pick<Link, '_id' | 'uri'> & Partial<Link>) {
     this._id = link._id || new Date().getTime().toString();
     this.uri = link.uri;
     this.url = link.url || '';

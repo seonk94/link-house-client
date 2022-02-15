@@ -16,11 +16,11 @@ const userActions = {
   fetchUser: () => ({
     type: userConstants.FETCH_USER,
   }),
-  signInUser: (input: { email: string, password: string }) => ({
+  signInUser: (input: { email: string; password: string }) => ({
     type: userConstants.SIGNIN_USER,
     payload: input,
   }),
-  signUpUser: (input: { email: string, password: string, name: string }) => ({
+  signUpUser: (input: { email: string; password: string; name: string }) => ({
     type: userConstants.SIGNUP_USER,
     payload: input,
   }),

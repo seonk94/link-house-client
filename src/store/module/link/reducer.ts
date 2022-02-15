@@ -1,10 +1,11 @@
 import Link from 'src/models/Link';
+
 import { LinkActionType, linkConstants } from './actions';
 
 type State = {
-  links: Link[]
+  links: Link[];
   message: unknown;
-}
+};
 
 const initialState: State = {
   links: [],
@@ -13,10 +14,11 @@ const initialState: State = {
 
 function linkReducer(state: State = initialState, action: LinkActionType): State {
   switch (action.type) {
-    case linkConstants.ADD_LINK: return {
-      ...state,
-      links: [action.payload, ...state.links],
-    };
+    case linkConstants.ADD_LINK:
+      return {
+        ...state,
+        links: [action.payload, ...state.links],
+      };
     case linkConstants.REMOVE_LINK: {
       return {
         ...state,
@@ -24,9 +26,7 @@ function linkReducer(state: State = initialState, action: LinkActionType): State
       };
     }
     case linkConstants.UPDATE_LINK: {
-      const findIndex = state.links.findIndex(
-        (link) => link._id === action.payload._id,
-      );
+      const findIndex = state.links.findIndex((link) => link._id === action.payload._id);
       if (findIndex === -1) return state;
       const newLinks = [...state.links];
       newLinks[findIndex] = action.payload;
@@ -50,7 +50,8 @@ function linkReducer(state: State = initialState, action: LinkActionType): State
     case linkConstants.FETCH_LINKS: {
       return state;
     }
-    default: return state;
+    default:
+      return state;
   }
 }
 export default linkReducer;

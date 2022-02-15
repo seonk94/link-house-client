@@ -1,9 +1,16 @@
-import {
-  findPasswordApi, signupApi, updateUserApi, getMeApi, signinApi,
-} from 'src/controller';
+import { findPasswordApi, getMeApi, signinApi, signupApi, updateUserApi } from 'src/controller';
 import User from 'src/models/User';
+
 import {
-  SIGNUP_RESPONSE, SIGNUP_PARAMS, SIGNIN_RESPONSE, SIGNIN_PARAMS, GET_ME_RESPONSE, FIND_PASSWORD_PARAMS, FIND_PASSWORD_RESPONSE, UPDATE_USER_RESPONSE, UPDATE_USER_PARAMS,
+  FIND_PASSWORD_PARAMS,
+  FIND_PASSWORD_RESPONSE,
+  GET_ME_RESPONSE,
+  SIGNIN_PARAMS,
+  SIGNIN_RESPONSE,
+  SIGNUP_PARAMS,
+  SIGNUP_RESPONSE,
+  UPDATE_USER_PARAMS,
+  UPDATE_USER_RESPONSE,
 } from './type';
 
 class AuthService {

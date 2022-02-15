@@ -1,14 +1,12 @@
+import { Col, Divider, Form, Row } from 'antd';
 import React from 'react';
-import {
-  Col, Divider, Form, Row,
-} from 'antd';
-import SignInForm from 'src/components/modules/SignInForm';
 import { useDispatch } from 'react-redux';
+import SignInForm from 'src/components/modules/SignInForm';
 import userActions, { userConstants } from 'src/store/module/auth/actions';
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const handleSignIn = (values: { email: string, password: string}) => {
+  const handleSignIn = (values: { email: string; password: string }) => {
     dispatch(userActions.signInUser(values));
   };
   return (
