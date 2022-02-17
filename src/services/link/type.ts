@@ -1,21 +1,21 @@
 import Link from 'src/models/Link';
 
 export interface GET_LINKS_RESPONSE {
-  links: Link[]
+  links: Link[];
 }
 
 export interface POST_LINK_RESPONSE {
-  link: Link
+  link: Link;
 }
 
 export interface PATCH_LINK_RESPONSE {
-  link: Link
+  link: Link;
 }
 
 export interface DELETE_LINK_RESPONSE {
-  id: string
+  id: string;
 }
 
 export interface GET_METADATA_RESPONSE {
-  metadata: Link
+  metadata: Link;
 }

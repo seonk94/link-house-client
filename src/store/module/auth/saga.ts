@@ -2,6 +2,7 @@ import { History } from 'history';
 import { call, getContext, put, SagaReturnType, takeEvery } from 'redux-saga/effects';
 import { authService } from 'src/services/auth';
 
+import { tagService } from './../../../services/tag/index';
 import userActions, { userConstants } from './actions';
 
 function* handleSignIn(action: ReturnType<typeof userActions.signInUser>) {
@@ -34,6 +35,7 @@ function* handleSignUp(action: ReturnType<typeof userActions.signUpUser>) {
   const history: History = yield getContext('history');
   try {
     const res: SagaReturnType<typeof authService.signup> = yield call(authService.signup, action.payload);
+    yield call(tagService.postTag, res.user._id);
     history.push('/signin');
   } catch (e) {
     yield put(userActions.failUser(e));
