@@ -1,8 +1,8 @@
 import { History } from 'history';
 import { call, getContext, put, SagaReturnType, takeEvery } from 'redux-saga/effects';
 import { authService } from 'src/services/auth';
+import { tagService } from 'src/services/tag';
 
-import { tagService } from './../../../services/tag/index';
 import userActions, { userConstants } from './actions';
 
 function* handleSignIn(action: ReturnType<typeof userActions.signInUser>) {
@@ -15,7 +15,9 @@ function* handleSignIn(action: ReturnType<typeof userActions.signInUser>) {
     };
 
     localStorage.setItem('tokenObject', JSON.stringify(item));
+    const getTagsResponse: SagaReturnType<typeof tagService.getTag> = yield call(tagService.getTag);
     yield put(userActions.setUser(res.user));
+    yield put(userActions.setTags(getTagsResponse.tag.tags));
     history.push('/');
   } catch (e) {
     yield put(userActions.failUser(e));
@@ -24,8 +26,10 @@ function* handleSignIn(action: ReturnType<typeof userActions.signInUser>) {
 
 function* handleUpdateMe() {
   try {
-    const res: SagaReturnType<typeof authService.getMe> = yield call(authService.getMe);
-    yield put(userActions.setUser(res.user));
+    const getMeResponse: SagaReturnType<typeof authService.getMe> = yield call(authService.getMe);
+    const getTagsResponse: SagaReturnType<typeof tagService.getTag> = yield call(tagService.getTag);
+    yield put(userActions.setUser(getMeResponse.user));
+    yield put(userActions.setTags(getTagsResponse.tag.tags));
   } catch (e) {
     yield put(userActions.failUser(e));
   }

@@ -47,8 +47,16 @@ interface Props {
   handleDelete: (link: Link) => void;
   handleClick: (link: Link) => void;
   handleShowRateModal: (link: Link) => void;
+  handleShowTagModal: (link: Link) => void;
 }
-const LinkCard = ({ link, handleUpdate, handleDelete, handleClick, handleShowRateModal }: Props) => {
+const LinkCard = ({
+  link,
+  handleUpdate,
+  handleDelete,
+  handleClick,
+  handleShowRateModal,
+  handleShowTagModal,
+}: Props) => {
   const aStyle = {
     display: 'block',
     color: 'inherit',
@@ -78,7 +86,10 @@ const LinkCard = ({ link, handleUpdate, handleDelete, handleClick, handleShowRat
         삭제
       </Menu.Item>
       <Menu.Item key="rate" onClick={check(handleShowRateModal)}>
-        평점
+        평점 설정
+      </Menu.Item>
+      <Menu.Item key="tag" onClick={check(handleShowTagModal)}>
+        태그 설정
       </Menu.Item>
     </Menu>
   );

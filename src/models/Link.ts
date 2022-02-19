@@ -17,6 +17,8 @@ export default class Link {
 
   public grade: number;
 
+  public tags: string[];
+
   public watchAt: string | null;
 
   constructor(link: Pick<Link, '_id' | 'uri'> & Partial<Link>) {
@@ -30,5 +32,6 @@ export default class Link {
     this.description = link.description || '';
     this.grade = link.grade || 0;
     this.watchAt = link.watchAt || null;
+    this.tags = link.tags || [];
   }
 }
