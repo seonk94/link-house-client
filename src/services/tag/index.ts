@@ -12,8 +12,8 @@ class TagService {
     return postTagApi<string, POST_TAG_RESPONSE>(userId);
   }
 
-  public patchTag(params: Tag) {
-    return patchTagApi<Tag, PATCH_TAG_RESPONSE>(params);
+  public patchTag(params: string[]) {
+    return patchTagApi<string[], PATCH_TAG_RESPONSE>(params);
   }
 }
 

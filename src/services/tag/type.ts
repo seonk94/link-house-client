@@ -5,9 +5,9 @@ export interface GET_TAG_RESPONSE {
 }
 
 export interface POST_TAG_RESPONSE {
-  tag: Tag[];
+  tag: Tag;
 }
 
 export interface PATCH_TAG_RESPONSE {
-  tag: Tag[];
+  tag: Tag;
 }

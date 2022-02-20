@@ -1,21 +1,34 @@
-import { Col, Divider, Row } from 'antd';
-import React, { useCallback, useEffect, useState } from 'react';
+import { Col, Divider, Row, Tag } from 'antd';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LinkCard from 'src/components/atoms/LinkCard';
 import SignInAlert from 'src/components/atoms/SignInAlert';
 import UrlInput from 'src/components/atoms/UrlInput';
-import RateModal from 'src/components/layout/RateModel';
+import RateModal from 'src/components/layout/RateModal';
+import TagModal from 'src/components/layout/TagModal';
 import Link from 'src/models/Link';
+import { tagService } from 'src/services/tag';
 import { RootState } from 'src/store';
+import userActions from 'src/store/module/auth/actions';
 import linkActions from 'src/store/module/link/actions';
 
 const Home = () => {
   const [search, setSearch] = useState('');
   const [showRateModal, setShowRateModal] = useState(false);
+  const [showTagModal, setShowTagModal] = useState(false);
   const [watchLink, setWatchLink] = useState<null | Link>(null);
   const links = useSelector((state: RootState) => state.link.links);
   const user = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch();
+
+  const userTags = useMemo(() => {
+    return [
+      ...links.reduce((acc, cur) => {
+        cur.tags.forEach((tag) => acc.add(tag));
+        return acc;
+      }, new Set<string>()),
+    ];
+  }, [links]);
 
   useEffect(() => {
     if (links.length === 0 && user) {
@@ -82,10 +95,13 @@ const Home = () => {
     [user, dispatch, linkActions, setShowRateModal],
   );
 
-  const handleShowRateModal = useCallback((link: Link) => {
-    setWatchLink(link);
-    setShowRateModal(true);
-  }, []);
+  const handleShowRateModal = useCallback(
+    (link: Link) => {
+      setWatchLink(link);
+      setShowRateModal(true);
+    },
+    [setWatchLink, setShowRateModal],
+  );
 
   const handleCloseRateModal = useCallback(
     (grade?: number) => {
@@ -101,6 +117,31 @@ const Home = () => {
       setShowRateModal(false);
     },
     [watchLink, dispatch, setWatchLink, user, setShowRateModal, linkActions],
+  );
+
+  const handleShowTagModal = useCallback(
+    (link: Link) => {
+      console.log('link', link);
+      setWatchLink(link);
+      setShowTagModal(true);
+    },
+    [setWatchLink, setShowTagModal],
+  );
+
+  const handleCloseTagModal = useCallback(
+    (obj?: { tags: string[]; deleteTags: string[]; registTags: string[] }) => {
+      if (obj && watchLink && user) {
+        dispatch(
+          linkActions.patchLink({
+            ...watchLink,
+            tags: obj.tags,
+          }),
+        );
+        setWatchLink(null);
+      }
+      setShowTagModal(false);
+    },
+    [watchLink, dispatch, setWatchLink, user, setShowTagModal, linkActions],
   );
 
   return (
@@ -119,6 +160,7 @@ const Home = () => {
               link={link}
               handleUpdate={handleUpdateLink(link)}
               handleShowRateModal={handleShowRateModal}
+              handleShowTagModal={handleShowTagModal}
               handleDelete={handleDeleteLink}
               handleClick={handleClickLink}
             />
@@ -126,6 +168,9 @@ const Home = () => {
         ))}
       </Row>
       {showRateModal && <RateModal show={showRateModal} handleClose={handleCloseRateModal} />}
+      {showTagModal && watchLink && (
+        <TagModal show={showTagModal} initTags={watchLink.tags} handleClose={handleCloseTagModal} />
+      )}
     </>
   );
 };

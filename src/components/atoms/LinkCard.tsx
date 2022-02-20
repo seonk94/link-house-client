@@ -1,8 +1,9 @@
 import { DeleteOutlined, MoreOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Dropdown, Image, Menu, Rate, Row } from 'antd';
+import { Button, Card, Col, Dropdown, Image, Menu, Rate, Row, Tag } from 'antd';
 import React, { useCallback, useEffect } from 'react';
 import { animated, useSpring } from 'react-spring';
 import NotFoundImage from 'src/assets/images/NotFound.png';
+import { MyTag } from 'src/assets/styles/styled';
 import Link from 'src/models/Link';
 import styled from 'styled-components';
 
@@ -77,7 +78,7 @@ const LinkCard = ({
       info.domEvent.stopPropagation();
       callback(link);
     },
-    [],
+    [link],
   );
 
   const DropdownMenu = (
@@ -174,7 +175,16 @@ const LinkCard = ({
         {/* </a> */}
         <ActionRow>
           <Col sm={12}>
-            {/* <Rate allowHalf value={link.grade} onChange={(value) => handleUpdate({ grade: value })} /> */}
+            🏷️
+            {link.tags.slice(0, 3).map((tag, index) =>
+              index <= 1 ? (
+                <MyTag type="category" key={tag}>
+                  {tag}
+                </MyTag>
+              ) : (
+                <MyTag type="info">+{link.tags.length - 2}</MyTag>
+              ),
+            )}
           </Col>
           <Col sm={12}>
             <Row justify="end">

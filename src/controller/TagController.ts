@@ -22,7 +22,7 @@ export function patchTagApi<P, R>(params: P) {
     method: 'PATCH',
     url: `/api/tag`,
     data: {
-      ...params,
+      tags: params,
     },
   });
 }

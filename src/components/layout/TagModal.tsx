@@ -1,5 +1,6 @@
-import { Input, Modal, Rate, Row, Tag } from 'antd';
+import { Divider, Input, Modal, Rate, Row, Tag } from 'antd';
 import React, { useCallback, useMemo, useState } from 'react';
+import { MyTag } from 'src/assets/styles/styled';
 
 interface Props {
   initTags: string[];
@@ -39,13 +40,20 @@ const TagModal = ({ initTags, show, handleClose }: Props) => {
       <Modal title="태그 설정" visible={show} onOk={handleConfirm} onCancel={() => handleClose()}>
         <Row>
           {tags.map((tag) => (
-            <Tag key={tag} closable onClose={() => handleCloseTag(tag)}>
+            <MyTag
+              type="category"
+              style={{ marginBottom: '6px' }}
+              key={tag}
+              closable
+              onClose={() => handleCloseTag(tag)}
+            >
               {tag}
-            </Tag>
+            </MyTag>
           ))}
         </Row>
+        <Divider />
         <Row justify="center">
-          <Input value={input} onInput={handleInput} onPressEnter={handlePressEnter} />
+          <Input showCount maxLength={8} value={input} onInput={handleInput} onPressEnter={handlePressEnter} />
         </Row>
       </Modal>
     </>
