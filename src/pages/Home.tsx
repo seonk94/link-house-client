@@ -87,7 +87,9 @@ const Home = () => {
           ...link,
           watchAt: new Date().toISOString(),
         });
-        handleShowRateModal(newLink);
+        if (!link.grade) {
+          handleShowRateModal(newLink);
+        }
 
         dispatch(linkActions.patchLink(newLink));
       }
